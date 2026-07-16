@@ -1,5 +1,13 @@
 # Zennolab CapMonsterCloud JS Client
 
+> [!IMPORTANT]
+> This repository has been moved and is no longer maintained.
+>
+> New repository: [https://github.com/CapMonsterCloud/client-js](https://github.com/CapMonsterCloud/client-js)
+>
+> Please update your references and use the new repository for all future development.
+
+
 Official JS client library for [capmonster.cloud](https://capmonster.cloud/) captcha recognition service
 
 ## Installation
