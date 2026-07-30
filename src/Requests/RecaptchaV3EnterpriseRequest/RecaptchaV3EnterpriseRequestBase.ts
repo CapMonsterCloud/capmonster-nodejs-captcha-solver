@@ -38,7 +38,7 @@ export abstract class RecaptchaV3EnterpriseRequestBase extends CaptchaRequestBas
 
   constructor({ type, nocache, websiteURL, websiteKey, userAgent, pageAction, minScore }: RecaptchaV3EnterpriseRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.userAgent = userAgent;
     this.pageAction = pageAction;

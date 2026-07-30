@@ -1,0 +1,14 @@
+node_modules
+dist
+coverage
+*.log
+
+# TypeScript
+*.d.ts
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store

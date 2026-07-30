@@ -3,6 +3,7 @@ import { CaptchaRequestBase, CaptchaRequestBaseIn } from './CaptchaRequestBase';
 type metaData = {
   Task: string;
   TaskArgument?: string;
+  PayloadType?: string;
 };
 
 export type ComplexImageRecognitionRequestBaseIn = {

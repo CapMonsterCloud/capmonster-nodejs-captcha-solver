@@ -20,7 +20,7 @@ import { DataDomeRequest, DataDomeRequestIn } from './Requests/DataDomeRequest';
 import { TenDIRequest, TenDIRequestIn } from './Requests/TenDIRequest';
 import { AmazonRequest, AmazonRequestIn } from './Requests/AmazonRequest';
 import { BasiliskRequest, BasiliskRequestIn } from './Requests/BasiliskRequest';
-import { ImpervaRequest, ImpervaRequestIn } from './Requests/ImpervaRequest';
+import { ImpervaRequest, ImpervaRequestIn, ImpervaMetadata } from './Requests/ImpervaRequest';
 import { BinanceRequest, BinanceRequestIn } from './Requests/BinanceRequest';
 import { ComplexImageRecognitionRequestIn, ComplexImageTaskRecognitionRequest } from './Requests/ComplexImageTaskRecognitionRequest';
 import { ProsopoRequest, ProsopoRequestIn } from './Requests/ProsopoRequest';
@@ -31,6 +31,9 @@ import { CastleRequest, CastleRequestIn } from './Requests/CastleRequest';
 import { TSPDRequest, TSPDRequestIn } from './Requests/TSPDRequest';
 import { HuntRequest, HuntRequestIn } from './Requests/HuntRequest';
 import { AltchaRequest, AltchaRequestIn } from './Requests/AltchaRequest';
+import { AlibabaRequest, AlibabaRequestIn } from './Requests/AlibabaRequest';
+import { FriendlyRequest, FriendlyRequestIn } from './Requests/FriendlyRequest';
+import { CommonCaptcha, CommonCaptchaRequest, CommonCaptchaRequestIn, CommonCaptchaTask } from './Requests/CommonCaptchaRequest';
 
 export default {
   CapMonsterCloudClientFactory,
@@ -61,7 +64,11 @@ export default {
   TSPDRequest,
   HuntRequest,
   AltchaRequest,
+  AlibabaRequest,
+  FriendlyRequest,
   RecaptchaV3EnterpriseRequest,
+  CommonCaptchaRequest,
+  CommonCaptcha,
 };
 
 export {
@@ -103,6 +110,7 @@ export {
   BasiliskRequestIn,
   ImpervaRequest,
   ImpervaRequestIn,
+  ImpervaMetadata,
   BinanceRequest,
   BinanceRequestIn,
   ComplexImageTaskRecognitionRequest,
@@ -123,6 +131,14 @@ export {
   HuntRequestIn,
   AltchaRequest,
   AltchaRequestIn,
+  AlibabaRequest,
+  AlibabaRequestIn,
+  FriendlyRequest,
+  FriendlyRequestIn,
   RecaptchaV3EnterpriseRequest,
   RecaptchaV3EnterpriseRequestIn,
+  CommonCaptchaRequest,
+  CommonCaptcha,
+  CommonCaptchaRequestIn,
+  CommonCaptchaTask,
 };

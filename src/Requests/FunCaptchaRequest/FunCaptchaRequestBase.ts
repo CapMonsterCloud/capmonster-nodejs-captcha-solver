@@ -6,6 +6,7 @@ export type FunCaptchaRequestBaseIn = {
   funcaptchaApiJSSubdomain?: string;
   data?: string;
   cookies?: string;
+  userAgent?: string;
 } & CaptchaRequestBaseIn;
 
 /**
@@ -49,12 +50,27 @@ export abstract class FunCaptchaRequestBase extends CaptchaRequestBase {
    */
   public cookies?: string;
 
-  constructor({ type, nocache, websiteURL, websitePublicKey, funcaptchaApiJSSubdomain, data, cookies }: FunCaptchaRequestBaseIn) {
+  /**
+   * Browser's User-Agent which is used in emulation.
+   */
+  public userAgent?: string;
+
+  constructor({
+    type,
+    nocache,
+    websiteURL,
+    websitePublicKey,
+    funcaptchaApiJSSubdomain,
+    data,
+    cookies,
+    userAgent,
+  }: FunCaptchaRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websitePublicKey = websitePublicKey;
     this.funcaptchaApiJSSubdomain = funcaptchaApiJSSubdomain;
     this.data = data;
     this.cookies = cookies;
+    this.userAgent = userAgent;
   }
 }

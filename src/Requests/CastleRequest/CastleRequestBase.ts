@@ -69,7 +69,7 @@ export abstract class CastleRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, websiteKey, userAgent, metadata, _class }: CastleRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.userAgent = userAgent;
     this.metadata = metadata;

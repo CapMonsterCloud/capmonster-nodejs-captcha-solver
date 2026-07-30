@@ -1,4 +1,5 @@
 import { DataDomeRequest } from './DataDomeRequest';
+import { ImpervaRequest } from './ImpervaRequest';
 import { SerializeObject } from './RequestsSerialization';
 import { CapMonsterModules } from '../CapMonsterModules';
 import { RecaptchaV2Request } from './RecaptchaV2Request';
@@ -14,9 +15,44 @@ import { ComplexImageRecaptchaRequest } from './ComplexImageRecaptchaRequest';
 import { ComplexImageFunCaptchaRequest } from './ComplexImageFunCaptchaRequest';
 import { AmazonRequest } from './AmazonRequest';
 import { AltchaRequest } from './AltchaRequest';
+import { AlibabaRequest } from './AlibabaRequest';
+import { FriendlyRequest } from './FriendlyRequest';
 import { RecaptchaV3EnterpriseRequest } from './RecaptchaV3EnterpriseRequest';
+import { CommonCaptchaRequest } from './CommonCaptchaRequest';
 
 describe('Check unit tests for SerializeObject()', () => {
+  it(`should serialize CommonCaptchaRequest`, () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new CommonCaptchaRequest({
+        task: {
+          type: 'RecaptchaV2Task',
+          websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
+          websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+        },
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: {
+        type: 'RecaptchaV2Task',
+        websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
+        websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+      },
+    });
+  });
+
+  it(`should throw for invalid websiteURL`, () => {
+    expect(
+      () =>
+        new RecaptchaV2Request({
+          websiteURL: 'websiteURL',
+          websiteKey: 'websiteKey',
+        }),
+    ).toThrow('websiteURL must be a valid http or https URL');
+  });
+
   it(`should serialize RecaptchaV2ProxylessRequest`, () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
@@ -26,6 +62,7 @@ describe('Check unit tests for SerializeObject()', () => {
         recaptchaDataSValue: 'some data-s value',
         userAgent: 'PostmanRuntime/7.29.0',
         cookies: 'cookieA=value#A;cookieB=value#B',
+        isInvisible: true,
       }),
     });
 
@@ -38,6 +75,7 @@ describe('Check unit tests for SerializeObject()', () => {
         recaptchaDataSValue: 'some data-s value',
         userAgent: 'PostmanRuntime/7.29.0',
         cookies: 'cookieA=value#A;cookieB=value#B',
+        isInvisible: true,
       },
     });
   });
@@ -51,6 +89,7 @@ describe('Check unit tests for SerializeObject()', () => {
         recaptchaDataSValue: 'some data-s value',
         userAgent: 'PostmanRuntime/7.29.0',
         cookies: 'cookieA=value#A;cookieB=value#B',
+        isInvisible: true,
         proxy: {
           proxyType: 'socks4',
           proxyAddress: 'https://proxy.com',
@@ -75,6 +114,7 @@ describe('Check unit tests for SerializeObject()', () => {
         proxyPort: 6045,
         proxyLogin: 'login',
         proxyPassword: 'p@ssword',
+        isInvisible: true,
       },
     });
   });
@@ -114,6 +154,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
         minScore: 0.6,
         pageAction: 'some-action',
+        isEnterprise: true,
       }),
     });
 
@@ -125,6 +166,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
         minScore: 0.6,
         pageAction: 'some-action',
+        isEnterprise: true,
       },
     });
   });
@@ -137,6 +179,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websitePublicKey: '69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC',
         data: '{"blob":"dyXvXANMbHj1iDyz.Qj97JtSqR2n%2BuoY1V%2FbdgbrG7p%2FmKiqdU9AwJ6MifEt0np4vfYn6TTJDJEfZDlcz9Q1XMn9przeOV%2FCr2%2FIpi%2FC1s%3D"}',
         funcaptchaApiJSSubdomain: 'mywebsite-api.funcaptcha.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       }),
     });
 
@@ -148,6 +191,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websitePublicKey: '69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC',
         data: '{"blob":"dyXvXANMbHj1iDyz.Qj97JtSqR2n%2BuoY1V%2FbdgbrG7p%2FmKiqdU9AwJ6MifEt0np4vfYn6TTJDJEfZDlcz9Q1XMn9przeOV%2FCr2%2FIpi%2FC1s%3D"}',
         funcaptchaApiJSSubdomain: 'mywebsite-api.funcaptcha.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       },
     });
   });
@@ -160,6 +204,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websitePublicKey: '69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC',
         data: '{"blob":"dyXvXANMbHj1iDyz.Qj97JtSqR2n%2BuoY1V%2FbdgbrG7p%2FmKiqdU9AwJ6MifEt0np4vfYn6TTJDJEfZDlcz9Q1XMn9przeOV%2FCr2%2FIpi%2FC1s%3D"}',
         funcaptchaApiJSSubdomain: 'mywebsite-api.funcaptcha.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         proxy: {
           proxyType: 'socks5',
           proxyAddress: 'https://proxy.com',
@@ -178,6 +223,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websitePublicKey: '69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC',
         data: '{"blob":"dyXvXANMbHj1iDyz.Qj97JtSqR2n%2BuoY1V%2FbdgbrG7p%2FmKiqdU9AwJ6MifEt0np4vfYn6TTJDJEfZDlcz9Q1XMn9przeOV%2FCr2%2FIpi%2FC1s%3D"}',
         funcaptchaApiJSSubdomain: 'mywebsite-api.funcaptcha.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         proxyType: 'socks5',
         proxyAddress: 'https://proxy.com',
         proxyPort: 6045,
@@ -206,7 +252,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteKey: '472fc7af-86a4-4382-9a49-ca9090474471',
         isInvisible: true,
         data: 'some data',
-        userAgent: expect(null == undefined).toBe(true),
+        userAgent: expect(true).toBe(true),
       },
     });
   });
@@ -237,7 +283,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteKey: '472fc7af-86a4-4382-9a49-ca9090474471',
         isInvisible: true,
         data: 'some data',
-        userAgent: expect(null == undefined).toBe(true),
+        userAgent: expect(true).toBe(true),
         proxyType: 'https',
         proxyAddress: 'https://proxy.com',
         proxyPort: 6045,
@@ -381,6 +427,8 @@ describe('Check unit tests for SerializeObject()', () => {
         enterprisePayload: {
           s: 'SOME_ADDITIONAL_TOKEN',
         },
+        apiDomain: 'www.recaptcha.net',
+        cookies: 'cookieA=value#A',
       }),
     });
 
@@ -393,6 +441,8 @@ describe('Check unit tests for SerializeObject()', () => {
         enterprisePayload: {
           s: 'SOME_ADDITIONAL_TOKEN',
         },
+        apiDomain: 'www.recaptcha.net',
+        cookies: 'cookieA=value#A',
       },
     });
   });
@@ -408,6 +458,8 @@ describe('Check unit tests for SerializeObject()', () => {
           s: 'SOME_ADDITIONAL_TOKEN',
         },
         pageAction: 'login',
+        apiDomain: 'www.recaptcha.net',
+        cookies: 'cookieA=value#A',
         proxy: {
           proxyType: 'http',
           proxyAddress: '8.8.8.8',
@@ -433,6 +485,9 @@ describe('Check unit tests for SerializeObject()', () => {
         proxyLogin: 'proxyLoginHere',
         proxyPassword: 'proxyPasswordHere',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.132 Safari/537.36',
+        pageAction: 'login',
+        apiDomain: 'www.recaptcha.net',
+        cookies: 'cookieA=value#A',
       },
     });
   });
@@ -550,7 +605,7 @@ describe('Check unit tests for SerializeObject()', () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
       task: new DataDomeRequest({
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         metadata: {
           captchaUrl: 'https://geo.captcha-delivery.com/captcha/?initialCid=12434324',
@@ -565,7 +620,7 @@ describe('Check unit tests for SerializeObject()', () => {
       task: {
         type: 'CustomTask',
         class: 'DataDome',
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         metadata: {
           captchaUrl: 'https://geo.captcha-delivery.com/captcha/?initialCid=12434324',
@@ -580,7 +635,7 @@ describe('Check unit tests for SerializeObject()', () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
       task: new DataDomeRequest({
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         metadata: {
           captchaUrl: 'https://geo.captcha-delivery.com/captcha/?initialCid=12434324',
@@ -601,7 +656,7 @@ describe('Check unit tests for SerializeObject()', () => {
       task: {
         type: 'CustomTask',
         class: 'DataDome',
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         metadata: {
           captchaUrl: 'https://geo.captcha-delivery.com/captcha/?initialCid=12434324',
@@ -616,11 +671,80 @@ describe('Check unit tests for SerializeObject()', () => {
     });
   });
 
+  it(`should serialize ImpervaRequest`, () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new ImpervaRequest({
+        websiteURL: 'https://www.example.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          incapsulaScriptUrl: '_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3',
+          incapsulaCookies: 'incap_ses_1166_2930313=br7iX33ZNCtf3HlpEXcuEDzz72cAAAAA0suDnBGrq/iA0J4oERYzjQ==',
+          reese84UrlEndpoint: 'Built-with-the-For-hopence-Hurleysurfecting-the-',
+        },
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: {
+        type: 'CustomTask',
+        class: 'Imperva',
+        websiteURL: 'https://www.example.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          incapsulaScriptUrl: '_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3',
+          incapsulaCookies: 'incap_ses_1166_2930313=br7iX33ZNCtf3HlpEXcuEDzz72cAAAAA0suDnBGrq/iA0J4oERYzjQ==',
+          reese84UrlEndpoint: 'Built-with-the-For-hopence-Hurleysurfecting-the-',
+        },
+      },
+    });
+  });
+
+  it(`should serialize ImpervaRequest with proxy`, () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new ImpervaRequest({
+        websiteURL: 'https://www.example.com',
+        metadata: {
+          incapsulaScriptUrl: '_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3',
+          incapsulaCookies: 'incap_ses_1166_2930313=br7iX33ZNCtf3HlpEXcuEDzz72cAAAAA0suDnBGrq/iA0J4oERYzjQ==',
+        },
+        proxy: {
+          proxyType: 'http',
+          proxyAddress: '8.8.8.8',
+          proxyPort: 8080,
+          proxyLogin: 'proxyLoginHere',
+          proxyPassword: 'proxyPasswordHere',
+        },
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: {
+        type: 'CustomTask',
+        class: 'Imperva',
+        websiteURL: 'https://www.example.com',
+        metadata: {
+          incapsulaScriptUrl: '_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3',
+          incapsulaCookies: 'incap_ses_1166_2930313=br7iX33ZNCtf3HlpEXcuEDzz72cAAAAA0suDnBGrq/iA0J4oERYzjQ==',
+        },
+        proxyType: 'http',
+        proxyAddress: '8.8.8.8',
+        proxyPort: 8080,
+        proxyLogin: 'proxyLoginHere',
+        proxyPassword: 'proxyPasswordHere',
+      },
+    });
+  });
+
   it(`should serialize AltchaRequest`, () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
       task: new AltchaRequest({
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
+        websiteKey: 'websiteKey',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         metadata: {
           challenge: '3dd28253be6cc0c54d95f7f98c517e68744597cc6e66109619d1ac975c39181c',
@@ -636,7 +760,8 @@ describe('Check unit tests for SerializeObject()', () => {
       task: {
         type: 'CustomTask',
         class: 'altcha',
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
+        websiteKey: 'websiteKey',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         metadata: {
           challenge: '3dd28253be6cc0c54d95f7f98c517e68744597cc6e66109619d1ac975c39181c',
@@ -652,7 +777,8 @@ describe('Check unit tests for SerializeObject()', () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
       task: new AltchaRequest({
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
+        websiteKey: 'websiteKey',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         metadata: {
           challenge: '3dd28253be6cc0c54d95f7f98c517e68744597cc6e66109619d1ac975c39181c',
@@ -675,7 +801,8 @@ describe('Check unit tests for SerializeObject()', () => {
       task: {
         type: 'CustomTask',
         class: 'altcha',
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
+        websiteKey: 'websiteKey',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         metadata: {
           challenge: '3dd28253be6cc0c54d95f7f98c517e68744597cc6e66109619d1ac975c39181c',
@@ -696,9 +823,12 @@ describe('Check unit tests for SerializeObject()', () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
       task: new TenDIRequest({
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+        metadata: {
+          captchaUrl: 'https://example.com/captcha',
+        },
       }),
     });
 
@@ -707,9 +837,12 @@ describe('Check unit tests for SerializeObject()', () => {
       task: {
         type: 'CustomTask',
         class: 'TenDI',
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+        metadata: {
+          captchaUrl: 'https://example.com/captcha',
+        },
       },
     });
   });
@@ -718,9 +851,12 @@ describe('Check unit tests for SerializeObject()', () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
       task: new TenDIRequest({
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+        metadata: {
+          captchaUrl: 'https://example.com/captcha',
+        },
         proxy: {
           proxyType: 'socks4',
           proxyAddress: 'https://proxy.com',
@@ -736,9 +872,12 @@ describe('Check unit tests for SerializeObject()', () => {
       task: {
         type: 'CustomTask',
         class: 'TenDI',
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+        metadata: {
+          captchaUrl: 'https://example.com/captcha',
+        },
         proxyType: 'socks4',
         proxyAddress: 'https://proxy.com',
         proxyPort: 6045,
@@ -752,12 +891,13 @@ describe('Check unit tests for SerializeObject()', () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
       task: new AmazonRequest({
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
         challengeScript: 'https://41bcdd4fb3cb.610cd090.us-east-1.token.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/challenge.js',
         captchaScript: 'https://41bcdd4fb3cb.610cd090.us-east-1.captcha.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/captcha.js',
         context: 'qoJYgnKsc...aormh/dYYK+Y=',
         iv: 'CgAAXFFFFSAAABVk',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       }),
     });
 
@@ -765,12 +905,151 @@ describe('Check unit tests for SerializeObject()', () => {
       clientKey: '<your capmonster.cloud API key>',
       task: {
         type: 'AmazonTask',
-        websiteURL: 'site.com',
+        websiteURL: 'https://site.com',
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
         challengeScript: 'https://41bcdd4fb3cb.610cd090.us-east-1.token.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/challenge.js',
         captchaScript: 'https://41bcdd4fb3cb.610cd090.us-east-1.captcha.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/captcha.js',
         context: 'qoJYgnKsc...aormh/dYYK+Y=',
         iv: 'CgAAXFFFFSAAABVk',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      },
+    });
+  });
+
+  it(`should serialize AlibabaRequest`, () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new AlibabaRequest({
+        websiteURL: 'https://www.example.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          sceneId: '1ww7426c4',
+          prefix: 'dlw3kug',
+        },
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: {
+        type: 'CustomTask',
+        class: 'alibaba',
+        websiteURL: 'https://www.example.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          sceneId: '1ww7426c4',
+          prefix: 'dlw3kug',
+        },
+      },
+    });
+  });
+
+  it(`should serialize AlibabaRequest with proxy`, () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new AlibabaRequest({
+        websiteURL: 'https://www.example.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          sceneId: '1ww7426c4',
+          prefix: 'dlw3kug',
+          userId: 'HpadJlQnz2zSKcSmjXBaqQvjYUvP4jMJIk/ZwGNDNiM=',
+        },
+        proxy: {
+          proxyType: 'http',
+          proxyAddress: '8.8.8.8',
+          proxyPort: 8080,
+          proxyLogin: 'proxyLoginHere',
+          proxyPassword: 'proxyPasswordHere',
+        },
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: {
+        type: 'CustomTask',
+        class: 'alibaba',
+        websiteURL: 'https://www.example.com',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          sceneId: '1ww7426c4',
+          prefix: 'dlw3kug',
+          userId: 'HpadJlQnz2zSKcSmjXBaqQvjYUvP4jMJIk/ZwGNDNiM=',
+        },
+        proxyType: 'http',
+        proxyAddress: '8.8.8.8',
+        proxyPort: 8080,
+        proxyLogin: 'proxyLoginHere',
+        proxyPassword: 'proxyPasswordHere',
+      },
+    });
+  });
+
+  it(`should serialize FriendlyRequest`, () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new FriendlyRequest({
+        websiteURL: 'https://example.com',
+        websiteKey: 'FFMGEMAD2K3JJ35P',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          apiGetLib: 'https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.15/widget.module.min.js',
+        },
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: {
+        type: 'CustomTask',
+        class: 'friendly',
+        websiteURL: 'https://example.com',
+        websiteKey: 'FFMGEMAD2K3JJ35P',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          apiGetLib: 'https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.15/widget.module.min.js',
+        },
+      },
+    });
+  });
+
+  it(`should serialize FriendlyRequest with proxy`, () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new FriendlyRequest({
+        websiteURL: 'https://example.com',
+        websiteKey: 'FFMGEMAD2K3JJ35P',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          apiGetLib: 'https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.15/widget.module.min.js',
+        },
+        proxy: {
+          proxyType: 'http',
+          proxyAddress: '8.8.8.8',
+          proxyPort: 8080,
+          proxyLogin: 'proxyLoginHere',
+          proxyPassword: 'proxyPasswordHere',
+        },
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: {
+        type: 'CustomTask',
+        class: 'friendly',
+        websiteURL: 'https://example.com',
+        websiteKey: 'FFMGEMAD2K3JJ35P',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        metadata: {
+          apiGetLib: 'https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.15/widget.module.min.js',
+        },
+        proxyType: 'http',
+        proxyAddress: '8.8.8.8',
+        proxyPort: 8080,
+        proxyLogin: 'proxyLoginHere',
+        proxyPassword: 'proxyPasswordHere',
       },
     });
   });

@@ -21,7 +21,7 @@ export abstract class ProsopoRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, websiteKey }: ProsopoRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
   }
 }

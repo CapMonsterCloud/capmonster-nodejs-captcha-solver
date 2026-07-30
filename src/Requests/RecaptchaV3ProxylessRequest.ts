@@ -6,6 +6,7 @@ type RecaptchaV3RequestIn = {
   websiteKey: string;
   minScore?: number;
   pageAction?: string;
+  isEnterprise?: boolean;
 } & CaptchaRequestBaseIn;
 
 export type RecaptchaV3ProxylessRequestIn = Pick<RecaptchaV3RequestIn, Exclude<keyof RecaptchaV3RequestIn, 'type'>>;
@@ -44,11 +45,17 @@ export class RecaptchaV3ProxylessRequest extends CaptchaRequestBase {
    */
   public pageAction: string;
 
-  constructor({ nocache, websiteURL, websiteKey, minScore, pageAction = 'verify' }: RecaptchaV3ProxylessRequestIn) {
+  /**
+   * Set true to solve reCAPTCHA v3 Enterprise with the same request shape.
+   */
+  public isEnterprise?: boolean;
+
+  constructor({ nocache, websiteURL, websiteKey, minScore, pageAction = 'verify', isEnterprise }: RecaptchaV3ProxylessRequestIn) {
     super({ type: TaskType.RecaptchaV3TaskProxyless, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.minScore = minScore;
     this.pageAction = pageAction;
+    this.isEnterprise = isEnterprise;
   }
 }

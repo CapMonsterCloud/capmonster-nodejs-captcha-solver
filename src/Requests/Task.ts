@@ -23,7 +23,10 @@ import { YidunRequest } from './YidunRequest';
 import { MTCaptchaRequest } from './MTCaptchaRequest';
 import { CastleRequest } from './CastleRequest';
 import { HuntRequest } from './HuntRequest';
+import { AlibabaRequest } from './AlibabaRequest';
+import { FriendlyRequest } from './FriendlyRequest';
 import { TSPDRequest } from './TSPDRequest';
+import { CommonCaptchaRequest } from './CommonCaptchaRequest';
 
 /**
  * Universal type for recognition request
@@ -54,4 +57,7 @@ export type Task =
   | MTCaptchaRequest
   | CastleRequest
   | TSPDRequest
-  | HuntRequest;
+  | HuntRequest
+  | AlibabaRequest
+  | FriendlyRequest
+  | CommonCaptchaRequest;

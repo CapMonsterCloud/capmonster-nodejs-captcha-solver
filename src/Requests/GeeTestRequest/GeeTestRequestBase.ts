@@ -86,7 +86,7 @@ export abstract class GeeTestRequestBase extends CaptchaRequestBase {
     initParameters,
   }: GeeTestRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.gt = gt;
     this.challenge = challenge;
     this.geetestApiServerSubdomain = geetestApiServerSubdomain;

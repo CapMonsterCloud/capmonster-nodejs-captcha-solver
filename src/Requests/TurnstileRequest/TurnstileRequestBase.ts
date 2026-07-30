@@ -21,7 +21,7 @@ export abstract class TurnstileRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, websiteKey }: TurnstileRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
   }
 }

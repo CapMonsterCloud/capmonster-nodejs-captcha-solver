@@ -1,4 +1,5 @@
 import { Task } from './Requests/Task';
+import { CommonCaptchaRequest } from './Requests/CommonCaptchaRequest';
 import { TaskType } from './TaskType';
 
 export type GetResultTimeouts = {
@@ -118,7 +119,13 @@ export const MTCaptchaTaskTimeouts = {
 } as GetResultTimeouts;
 
 export function detectResultTimeouts(task: Task): GetResultTimeouts {
-  switch (task.type) {
+  if (task instanceof CommonCaptchaRequest) {
+    return CustomTaskTimeouts;
+  }
+
+  const taskType = task.type;
+
+  switch (taskType) {
     case TaskType.FunCaptchaTask:
       return FunCaptchaTimeouts;
     case TaskType.GeeTestTask:
@@ -154,6 +161,6 @@ export function detectResultTimeouts(task: Task): GetResultTimeouts {
     case TaskType.MTCaptchaTask:
       return MTCaptchaTaskTimeouts;
     default:
-      throw new Error(`Could not detect result timeouts for provided task type = ${task.type}`);
+      throw new Error(`Could not detect result timeouts for provided task type = ${taskType}`);
   }
 }
