@@ -1,22 +1,31 @@
-# Zennolab CapMonsterCloud JS Client
+# Node.js & TypeScript CAPTCHA Solver by CapMonster Cloud
 
-Official JS client library for [capmonster.cloud](https://capmonster.cloud/) captcha recognition service
+[![npm version](https://img.shields.io/npm/v/@zennolab_com/capmonstercloud-client.svg)](https://www.npmjs.com/package/@zennolab_com/capmonstercloud-client)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Installation
+The official **Node.js and TypeScript SDK** for CapMonster Cloud — the fastest AI-powered CAPTCHA solver and anti-bot bypass API. 
 
-Via [NPM](https://www.npmjs.com/package/@zennolab_com/capmonstercloud-client):
+Easily integrate automated CAPTCHA solving capabilities into your JavaScript/TypeScript web scraping, automation, and testing scripts. Fully compatible with **Puppeteer**, **Playwright**, **Cypress**, and raw HTTP requests.
+
+**[👉 Get your Free API Key and Start Bypassing CAPTCHAs](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)** 
+
+---
+
+## 📦 Installation
+
+Install the client library via [NPM](https://www.npmjs.com/package/@zennolab_com/capmonstercloud-client)
 
 ```bash
 npm i @zennolab_com/capmonstercloud-client
 ```
 
-## Quick Start
+## 🚀 Quick Start (TypeScript)
 
-1. Get your API key in the [CapMonster Cloud dashboard](https://capmonster.cloud/).
-2. Install the package (see above).
-3. Copy a snippet below, replace `YOUR_API_KEY`, and run it.
+1. Get your API key in the [CapMonster Cloud Dashboard](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+2. Install the package.
+3. Copy the snippet below, replace `YOUR_API_KEY`, and run your scraper.
 
-### reCAPTCHA v2
+### Bypass reCAPTCHA v2
 
 ```ts
 import {
@@ -39,7 +48,7 @@ const result = await client.Solve(
 console.log(result.solution); // { gRecaptchaResponse: '...' }
 ```
 
-### Cloudflare Turnstile
+### Bypass Cloudflare Turnstile
 
 ```ts
 import {
@@ -62,15 +71,17 @@ const result = await client.Solve(
 console.log(result.solution); // { token: '...' }
 ```
 
-For CommonJS (`require`), see the Node usage section below.
+## 💻 Usage with Node.js (CommonJS)
 
-## Usage with Node (with or without Typescript)
+If you are using standard CommonJS (`require`) without TypeScript:
 
 ```javascript
 const { CapMonsterCloudClientFactory, ClientOptions, RecaptchaV2Request } = require('@zennolab_com/capmonstercloud-client');
 
 async function run() {
   const cmcClient = CapMonsterCloudClientFactory.Create(new ClientOptions({ clientKey: '<your capmonster.cloud API key>' }));
+  
+  // Check your balance
   console.log(await cmcClient.getBalance());
 
   const recaptchaV2Request = new RecaptchaV2Request({
@@ -87,14 +98,14 @@ run()
     process.exit(0);
   })
   .catch((err) => {
-    console.error(err);
+    console.error('Error solving CAPTCHA:', err);
     process.exit(1);
   });
 ```
 
-## Usage with CommonCaptcha
+## 🛠 Usage with CommonCaptcha (Custom Payload)
 
-Use `CommonCaptcha` when you want to pass a full task payload directly, for example when a new captcha type is not yet covered by a dedicated request class.
+Use `CommonCaptcha` when you want to pass a full task payload directly (for example, when a new CAPTCHA type is released and not yet covered by a dedicated request class).
 
 ```javascript
 const { CapMonsterCloudClientFactory, ClientOptions, CommonCaptcha } = require('@zennolab_com/capmonstercloud-client');
@@ -116,10 +127,9 @@ async function run() {
 run();
 ```
 
-## Usage with Browser (with or without Typescript)
+## 🌐 Browser Usage (Frontend)
 
-Browser implementation use [fetch](https://caniuse.com/fetch) instead of [http(s)](https://nodejs.org/api/http.html).
-For browser usage you need some Module Bundler (e.g. [Webpack](https://webpack.js.org/)).
+Browser implementations use native [fetch](https://caniuse.com/fetch) instead of Node's [http(s)](https://nodejs.org/api/http.html). For browser usage, you need a module bundler like [Webpack](https://webpack.js.org/).
 
 ```javascript
 import { CapMonsterCloudClientFactory, ClientOptions, RecaptchaV2Request } from '@zennolab_com/capmonstercloud-client';
@@ -145,15 +155,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 ```
 
-## Debug
+## 🐛 Debugging
 
-For debugging set `DEBUG` environmental variable to one of [possible values](/src/Logger.ts) (see [debug module](https://www.npmjs.com/package/debug))
+For debugging, set the `DEBUG` environmental variable to one of the [possible values](/src/Logger.ts) (see the [debug module](https://www.npmjs.com/package/debug)).
 
 ```bash
 DEBUG=cmc-* node app.js
 ```
 
-## Supported captcha recognition requests:
+## ⚡ Supported CAPTCHA Recognition Requests
+
+We support automatic solving for the following anti-bot systems:
 
 - [AlibabaRequest](https://docs.capmonster.cloud/docs/captchas/alibaba-task/)
 - [AltchaRequest](https://zenno.link/doc-altcha-en)
@@ -182,3 +194,6 @@ DEBUG=cmc-* node app.js
 - [TSPDRequest](https://zenno.link/tspd-en)
 - [TurnstileRequest](https://zenno.link/doc-turnstile-proxy-en)
 - [YidunRequest](https://zenno.link/doc-yidun-en)
+
+---
+**[Official Documentation](https://docs.capmonster.cloud/docs/getting-start/)** | **[Register Account](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)**
