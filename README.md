@@ -148,7 +148,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       proxyLogin: 'proxyLoginHere',
       proxyPassword: 'proxyPasswordHere',
     },
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.132 Safari/537.36',
+    // check actual user agent here: https://capmonster.cloud/api/useragent/actual
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36',
   });
 
   console.log(await cmcClient.Solve(recaptchaV2Request));
