@@ -58,7 +58,7 @@ export abstract class HCaptchaRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, websiteKey, isInvisible, data, userAgent, cookies, fallbackToActualUA }: HCaptchaRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.isInvisible = isInvisible;
     this.data = data;

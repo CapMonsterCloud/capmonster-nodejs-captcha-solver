@@ -55,7 +55,7 @@ export abstract class HuntRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, userAgent, metadata, _class }: HuntRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.userAgent = userAgent;
     this.metadata = metadata;
     this.class = _class;

@@ -39,7 +39,7 @@ export abstract class MTCaptchaRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, websiteKey, userAgent, pageAction, isInvisible }: MTCaptchaRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.userAgent = userAgent;
     this.pageAction = pageAction;

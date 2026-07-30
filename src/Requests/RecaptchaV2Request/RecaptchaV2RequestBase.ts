@@ -6,6 +6,7 @@ export type RecaptchaV2RequestBaseIn = {
   recaptchaDataSValue?: string;
   userAgent?: string;
   cookies?: string;
+  isInvisible?: boolean;
 } & CaptchaRequestBaseIn;
 
 /**
@@ -43,12 +44,18 @@ export abstract class RecaptchaV2RequestBase extends CaptchaRequestBase {
    */
   public cookies?: string;
 
-  constructor({ type, nocache, websiteURL, websiteKey, recaptchaDataSValue, userAgent, cookies }: RecaptchaV2RequestBaseIn) {
+  /**
+   * Set true for invisible version of reCAPTCHA v2.
+   */
+  public isInvisible?: boolean;
+
+  constructor({ type, nocache, websiteURL, websiteKey, recaptchaDataSValue, userAgent, cookies, isInvisible }: RecaptchaV2RequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.recaptchaDataSValue = recaptchaDataSValue;
     this.userAgent = userAgent;
     this.cookies = cookies;
+    this.isInvisible = isInvisible;
   }
 }

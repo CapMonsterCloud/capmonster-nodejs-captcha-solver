@@ -48,6 +48,6 @@ export class ComplexImageRequestBase extends CaptchaRequestBase {
     this.imagesBase64 = imagesBase64;
     this.metadata = metaData;
     this.userAgent = userAgent;
-    this.websiteURL = websiteURL;
+    this.websiteURL = websiteURL === undefined ? undefined : this.validateWebsiteURL(websiteURL);
   }
 }

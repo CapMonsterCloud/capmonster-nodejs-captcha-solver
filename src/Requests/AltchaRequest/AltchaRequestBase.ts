@@ -2,6 +2,7 @@ import { CaptchaRequestBase, CaptchaRequestBaseIn } from '../CaptchaRequestBase'
 
 export type AltchaRequestBaseIn = {
   websiteURL: string;
+  websiteKey: string;
   userAgent?: string;
   _class: string;
   metadata: Metadata;
@@ -43,9 +44,10 @@ export abstract class AltchaRequestBase extends CaptchaRequestBase {
    */
   public class: string;
 
-  constructor({ type, nocache, websiteURL, userAgent, metadata, _class }: AltchaRequestBaseIn) {
+  constructor({ type, nocache, websiteURL, websiteKey, userAgent, metadata, _class }: AltchaRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
+    this.websiteKey = websiteKey;
     this.metadata = metadata;
     this.userAgent = userAgent;
     this.class = _class;

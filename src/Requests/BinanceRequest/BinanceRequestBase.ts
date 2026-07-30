@@ -33,7 +33,7 @@ export abstract class BinanceRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, userAgent, websiteKey, validateId }: BinanceRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.validateId = validateId;
     this.userAgent = userAgent;

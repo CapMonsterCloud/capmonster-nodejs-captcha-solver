@@ -1,11 +1,20 @@
 {
   "name": "@zennolab_com/capmonstercloud-client",
-  "version": "2.6.1",
+  "version": "2.8.0",
   "description": "Official JS client library for https://capmonster.cloud/ captcha recognition service",
   "main": "dist/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/esm/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   },
   "files": [
     "dist"
@@ -21,10 +30,12 @@
     "ZennoPoster"
   ],
   "scripts": {
-    "build": "node js-rimraf.js && npx tsc",
+    "build": "node js-rimraf.js && npx tsc && npx tsc -p tsconfig.esm.json && node js-fix-esm-imports.js && node -e \"require('fs').writeFileSync('dist/esm/package.json', JSON.stringify({ type: 'module' }, null, 2))\"",
     "test": "jest",
     "test-unit": "jest -c jest.config.unit.js",
-    "test-integr": "jest -c jest.config.integration.js"
+    "test-integr": "jest -c jest.config.integration.js",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix"
   },
   "author": "",
   "license": "ISC",

@@ -54,7 +54,7 @@ export abstract class TSPDRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, userAgent, metadata, _class }: TSPDRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.userAgent = userAgent;
     this.metadata = metadata;
     this.class = _class;

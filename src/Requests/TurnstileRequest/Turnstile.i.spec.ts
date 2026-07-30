@@ -33,6 +33,7 @@ describe('Check integration tests for TurnstileTask', () => {
       pageData: 'pageDataHere',
       data: 'dataHere',
       htmlPageBase64: 'htmlPageBase64Here',
+      apiJsUrl: 'https://challenges.cloudflare.com/turnstile/v0/api.js',
       userAgent: 'userAgentHere',
     });
 
@@ -40,7 +41,7 @@ describe('Check integration tests for TurnstileTask', () => {
 
     expect(srv.caughtRequests[0]).toHaveProperty(
       'body',
-      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"TurnstileTask","websiteURL":"https://tsinvisble.zlsupport.com","websiteKey":"0x4AAAAAAABUY0VLtOUMAHxE","cloudflareTaskType":"cf_clearance","userAgent":"userAgentHere","htmlPageBase64":"htmlPageBase64Here","data":"dataHere","pageData":"pageDataHere","proxyType":"http","proxyAddress":"8.8.8.8","proxyPort":8080,"proxyLogin":"proxyLoginHere","proxyPassword":"proxyPasswordHere"},"softId":54}',
+      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"TurnstileTask","websiteURL":"https://tsinvisble.zlsupport.com","websiteKey":"0x4AAAAAAABUY0VLtOUMAHxE","cloudflareTaskType":"cf_clearance","userAgent":"userAgentHere","htmlPageBase64":"htmlPageBase64Here","data":"dataHere","pageData":"pageDataHere","apiJsUrl":"https://challenges.cloudflare.com/turnstile/v0/api.js","proxyType":"http","proxyAddress":"8.8.8.8","proxyPort":8080,"proxyLogin":"proxyLoginHere","proxyPassword":"proxyPasswordHere"},"softId":54}',
     );
     expect(srv.caughtRequests[1]).toHaveProperty('body', '{"clientKey":"<your capmonster.cloud API key>","taskId":7654322}');
     expect(task).toHaveProperty('solution');

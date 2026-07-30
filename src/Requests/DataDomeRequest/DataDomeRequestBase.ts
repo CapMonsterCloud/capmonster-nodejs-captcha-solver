@@ -54,7 +54,7 @@ export abstract class DataDomeRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, userAgent, metadata, _class }: DataDomeRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.metadata = metadata;
     this.userAgent = userAgent;
     this.class = _class;

@@ -7,6 +7,8 @@ export type RecaptchaV2EnterpriseRequestBaseIn = {
   recaptchaDataSValue?: string;
   userAgent?: string;
   pageAction?: string;
+  apiDomain?: string;
+  cookies?: string;
 } & CaptchaRequestBaseIn;
 
 /**
@@ -59,6 +61,16 @@ export abstract class RecaptchaV2EnterpriseRequestBase extends CaptchaRequestBas
   // The action name passed to grecaptcha.execute().
   public pageAction?: string;
 
+  /**
+   * Domain that hosts the reCAPTCHA API interface.
+   */
+  public apiDomain?: string;
+
+  /**
+   * Additional cookies which we must use during interaction with target page or Google.
+   */
+  public cookies?: string;
+
   constructor({
     type,
     nocache,
@@ -68,13 +80,17 @@ export abstract class RecaptchaV2EnterpriseRequestBase extends CaptchaRequestBas
     recaptchaDataSValue,
     userAgent,
     pageAction,
+    apiDomain,
+    cookies,
   }: RecaptchaV2EnterpriseRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.enterprisePayload = enterprisePayload;
     this.recaptchaDataSValue = recaptchaDataSValue;
     this.userAgent = userAgent;
     this.pageAction = pageAction;
+    this.apiDomain = apiDomain;
+    this.cookies = cookies;
   }
 }

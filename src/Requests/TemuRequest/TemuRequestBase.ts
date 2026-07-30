@@ -36,7 +36,7 @@ export abstract class TemuRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, userAgent, metadata, _class }: TemuRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.metadata = metadata;
     this.userAgent = userAgent;
     this.class = _class;

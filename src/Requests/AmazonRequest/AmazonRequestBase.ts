@@ -8,6 +8,7 @@ export type AmazonRequestBaseIn = {
   context: string;
   iv: string;
   cookieSolution?: boolean;
+  userAgent?: string;
 } & CaptchaRequestBaseIn;
 
 /**
@@ -49,14 +50,31 @@ export abstract class AmazonRequestBase extends CaptchaRequestBase {
    */
   public cookieSolution?: boolean = false;
 
-  constructor({ type, nocache, websiteURL, challengeScript, captchaScript, websiteKey, context, iv, cookieSolution }: AmazonRequestBaseIn) {
+  /**
+   * Browser User-Agent. Pass only the actual UA from Windows OS.
+   */
+  public userAgent?: string;
+
+  constructor({
+    type,
+    nocache,
+    websiteURL,
+    challengeScript,
+    captchaScript,
+    websiteKey,
+    context,
+    iv,
+    cookieSolution,
+    userAgent,
+  }: AmazonRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.challengeScript = challengeScript;
     this.captchaScript = captchaScript;
     this.websiteKey = websiteKey;
     this.context = context;
     this.iv = iv;
     this.cookieSolution = cookieSolution;
+    this.userAgent = userAgent;
   }
 }

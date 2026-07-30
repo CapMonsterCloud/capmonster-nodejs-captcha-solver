@@ -63,6 +63,12 @@ import { TSPDRequest } from './Requests/TSPDRequest';
 import { TSPDResponse } from './Responses/TSPDResponse';
 import { HuntRequest } from './Requests/HuntRequest';
 import { HuntResponse } from './Responses/HuntResponse';
+import { AlibabaRequest } from './Requests/AlibabaRequest';
+import { AlibabaResponse } from './Responses/AlibabaResponse';
+import { FriendlyRequest } from './Requests/FriendlyRequest';
+import { FriendlyResponse } from './Responses/FriendlyResponse';
+import { CommonCaptchaRequest } from './Requests/CommonCaptchaRequest';
+import { CommonCaptchaResponse } from './Responses/CommonCaptchaResponse';
 
 /**
  * Base type for capmonster.cloud Client exceptions
@@ -296,6 +302,24 @@ export class CapMonsterCloudClient {
     cancellationController?: AbortController,
   ): Promise<CaptchaResult<CastleResponse>>;
   /**
+   * Solve Alibaba task
+   * You will get response within 10 - 180 secs period depending on service workload.
+   */
+  public async Solve(
+    task: AlibabaRequest,
+    resultTimeouts?: GetResultTimeouts,
+    cancellationController?: AbortController,
+  ): Promise<CaptchaResult<AlibabaResponse>>;
+  /**
+   * Solve Friendly Captcha task
+   * You will get response within 10 - 180 secs period depending on service workload.
+   */
+  public async Solve(
+    task: FriendlyRequest,
+    resultTimeouts?: GetResultTimeouts,
+    cancellationController?: AbortController,
+  ): Promise<CaptchaResult<FriendlyResponse>>;
+  /**
    * Solve TenDI task
    * You will get response within 10 - 180 secs period depending on service workload.
    */
@@ -424,6 +448,14 @@ export class CapMonsterCloudClient {
     resultTimeouts?: GetResultTimeouts,
     cancellationController?: AbortController,
   ): Promise<CaptchaResult<ComplexImageResponse>>;
+  /**
+   * Solve CommonCaptchaRequest task.
+   */
+  public async Solve(
+    task: CommonCaptchaRequest,
+    resultTimeouts?: GetResultTimeouts,
+    cancellationController?: AbortController,
+  ): Promise<CaptchaResult<CommonCaptchaResponse>>;
   /**
    * Solve {Task} task
    */

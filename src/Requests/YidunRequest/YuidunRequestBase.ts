@@ -68,7 +68,7 @@ export abstract class YidunRequestBase extends CaptchaRequestBase {
     hct,
   }: YidunRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.userAgent = userAgent;
     this.yidunGetLib = yidunGetLib;

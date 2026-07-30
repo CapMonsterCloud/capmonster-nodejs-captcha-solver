@@ -17,6 +17,7 @@ export type TurnstileCfClearanceType = Pick<TurnstileRequestBaseIn, Exclude<keyo
   htmlPageBase64?: string;
   data?: string;
   pageData?: string;
+  apiJsUrl?: string;
 };
 
 export type TurnstileRequestIn = (TurnstileTokenType | TurnstileCfClearanceType) & {
@@ -34,6 +35,7 @@ export class TurnstileRequest extends TurnstileRequestBase {
   htmlPageBase64?: string;
   data?: string;
   pageData?: string;
+  apiJsUrl?: string;
   constructor(argsObj: TurnstileRequestIn) {
     super({ type: TaskType.TurnstileTask, ...argsObj });
     this.cloudflareTaskType = argsObj.cloudflareTaskType;
@@ -43,6 +45,7 @@ export class TurnstileRequest extends TurnstileRequestBase {
       this.htmlPageBase64 = argsObj?.htmlPageBase64;
       this.data = argsObj?.data;
       this.pageData = argsObj?.pageData;
+      this.apiJsUrl = argsObj?.apiJsUrl;
     }
     if (argsObj.cloudflareTaskType === 'token') {
       this.data = argsObj?.data;

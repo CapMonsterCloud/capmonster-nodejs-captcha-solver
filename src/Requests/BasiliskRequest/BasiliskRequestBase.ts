@@ -33,7 +33,7 @@ export abstract class BasiliskRequestBase extends CaptchaRequestBase {
 
   constructor({ type, nocache, websiteURL, userAgent, websiteKey, _class }: BasiliskRequestBaseIn) {
     super({ type, nocache });
-    this.websiteURL = websiteURL;
+    this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
     this.userAgent = userAgent;
     this.class = _class;
