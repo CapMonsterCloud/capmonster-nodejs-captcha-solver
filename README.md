@@ -165,35 +165,39 @@ DEBUG=cmc-* node app.js
 
 ## ⚡ Supported CAPTCHA Recognition Requests
 
-We support automatic solving for the following anti-bot systems:
+### Classic captcha tasks
 
-- [AlibabaRequest](https://docs.capmonster.cloud/docs/captchas/alibaba-task/)
-- [AltchaRequest](https://zenno.link/doc-altcha-en)
-- [AmazonRequest](https://zenno.link/doc-amazon-en)
-- [BasiliskRequest](https://zenno.link/doc-basilisk-en)
-- [BinanceRequest](https://zenno.link/doc-binance-en)
-- [CastleRequest](https://zenno.link/castle-en)
-- [ComplexImageFunCaptchaRequest](https://zenno.link/doc-complextask-rc-en)
-- [ComplexImageRecaptchaRequest](https://zenno.link/doc-complextask-rc-en)
-- [ComplexImageTaskRecognitionRequest](https://zenno.link/doc-complex-image-recognition)
-- [DataDomeRequest](https://zenno.link/doc-datadome-en)
-- [FriendlyRequest](https://docs.capmonster.cloud/docs/captchas/friendly-task/)
-- [FunCaptchaRequest](https://docs.capmonster.cloud/docs/captchas/funcaptcha-task/)
-- [GeeTestRequest](https://zenno.link/doc-geetest-proxy-en)
-- [HuntRequest](https://zenno.link/hunt-en)
-- [ImageToTextRequest](https://zenno.link/doc-ImageToTextTask-en)
-- [ImpervaRequest](https://docs.capmonster.cloud/docs/captchas/incapsula/)
-- [MTCaptchaRequest](https://zenno.link/doc-mt-captcha-en)
-- [ProsopoRequest](https://zenno.link/doc-prosopo-en)
-- [RecaptchaV2EnterpriseRequest](https://zenno.link/doc-recaptcha2e-proxy-en)
-- [RecaptchaV2Request](https://zenno.link/doc-recaptcha2-proxy-en)
-- [RecaptchaV3EnterpriseRequest](https://zenno.link/doc-recaptcha3e-proxy-en)
-- [RecaptchaV3ProxylessRequest](https://zenno.link/doc-recaptcha3-en)
-- [TemuRequest](https://zenno.link/doc-temu-en)
-- [TenDIRequest](https://zenno.link/doc-tendi-en)
-- [TSPDRequest](https://zenno.link/tspd-en)
-- [TurnstileRequest](https://zenno.link/doc-turnstile-proxy-en)
-- [YidunRequest](https://zenno.link/doc-yidun-en)
+- [AmazonRequest](https://zenno.link/doc-amazon-waf)
+- [BinanceRequest](https://zenno.link/doc-binance)
+- [FunCaptchaRequest](https://zenno.link/doc-funcaptcha)
+- [GeeTestRequest](https://zenno.link/doc-geetest)
+- [ImageToTextRequest](https://zenno.link/doc-imagetotext)
+- [MTCaptchaRequest](https://zenno.link/doc-mtcaptcha)
+- [ProsopoRequest](https://zenno.link/doc-prosopo)
+- [RecaptchaV2Request](https://zenno.link/doc-recaptcha2)
+- [RecaptchaV2EnterpriseRequest](https://zenno.link/doc-recaptcha2e)
+- [RecaptchaV3ProxylessRequest](https://zenno.link/doc-recaptcha3)
+- [TurnstileRequest - Cloudflare Turnstile](https://zenno.link/doc-cloudflare-turnstile)
+- [TurnstileRequest - Cloudflare Challenge](https://zenno.link/doc-cloudflare-challenge)
+- [TurnstileRequest - Cloudflare Waiting Room](https://zenno.link/doc-cloudflare-waitingroom)
+- [YidunRequest](https://zenno.link/doc-yidun)
+
+### Custom tasks (anti-bot / WAF / custom challenge systems)
+
+- [AlibabaRequest](https://zenno.link/doc-customtask-alibaba)
+- [AltchaRequest](https://zenno.link/doc-customtask-altcha)
+- [BasiliskRequest](https://zenno.link/doc-customtask-basilisk)
+- [DataDomeRequest](https://zenno.link/doc-customtask-datadome)
+- [FriendlyRequest](https://zenno.link/doc-customtask-friendly)
+- [HuntRequest](https://zenno.link/doc-customtask-hunt)
+- [ImpervaRequest](https://zenno.link/doc-customtask-imperva)
+- [TenDIRequest](https://zenno.link/doc-customtask-tendi)
+- [TSPDRequest](https://zenno.link/doc-customtask-tspd)
+
+### Complex image tasks (grid / dynamic image selection tasks)
+
+- [ComplexImageRecaptchaRequest](https://zenno.link/doc-complextask-rc)
+- [ComplexImageTaskRecognitionRequest](https://zenno.link/doc-complextask-recognition)
 
 ---
 **[Official Documentation](https://docs.capmonster.cloud/docs/getting-start/)** | **[Register Account](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)**
