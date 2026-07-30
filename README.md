@@ -6,7 +6,63 @@ Official JS client library for [capmonster.cloud](https://capmonster.cloud/) cap
 
 Via [NPM](https://www.npmjs.com/package/@zennolab_com/capmonstercloud-client):
 
-    npm i @zennolab_com/capmonstercloud-client
+```bash
+npm i @zennolab_com/capmonstercloud-client
+```
+
+## Quick Start
+
+1. Get your API key in the [CapMonster Cloud dashboard](https://capmonster.cloud/).
+2. Install the package (see above).
+3. Copy a snippet below, replace `YOUR_API_KEY`, and run it.
+
+### reCAPTCHA v2
+
+```ts
+import {
+  CapMonsterCloudClientFactory,
+  ClientOptions,
+  RecaptchaV2Request,
+} from '@zennolab_com/capmonstercloud-client';
+
+const client = CapMonsterCloudClientFactory.Create(
+  new ClientOptions({ clientKey: 'YOUR_API_KEY' }),
+);
+
+const result = await client.Solve(
+  new RecaptchaV2Request({
+    websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
+    websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+  }),
+);
+
+console.log(result.solution); // { gRecaptchaResponse: '...' }
+```
+
+### Cloudflare Turnstile
+
+```ts
+import {
+  CapMonsterCloudClientFactory,
+  ClientOptions,
+  TurnstileRequest,
+} from '@zennolab_com/capmonstercloud-client';
+
+const client = CapMonsterCloudClientFactory.Create(
+  new ClientOptions({ clientKey: 'YOUR_API_KEY' }),
+);
+
+const result = await client.Solve(
+  new TurnstileRequest({
+    websiteURL: 'https://tsinvisble.zlsupport.com',
+    websiteKey: '0x4AAAAAAABUY0VLtOUMAHxE',
+  }),
+);
+
+console.log(result.solution); // { token: '...' }
+```
+
+For CommonJS (`require`), see the Node usage section below.
 
 ## Usage with Node (with or without Typescript)
 
