@@ -1,31 +1,58 @@
-# Node.js & TypeScript CAPTCHA Solver by CapMonster Cloud
+# CapMonster Cloud Node.js SDK: TypeScript CAPTCHA Solver & Anti-Bot API Client
 
-[![npm version](https://img.shields.io/npm/v/@zennolab_com/capmonstercloud-client.svg)](https://www.npmjs.com/package/@zennolab_com/capmonstercloud-client)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme">
+    <img src="https://img.shields.io/badge/CapMonster%20Cloud-Node.js%20Captcha%20Solver-00B2FF?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="CapMonster Cloud Node.js SDK" height="40">
+  </a>
+</p>
 
-The official **Node.js and TypeScript SDK** for CapMonster Cloud — the fastest AI-powered CAPTCHA solver and anti-bot bypass API. 
+<p align="center">
+  <strong>Official Node.js and TypeScript SDK for automated CAPTCHA solving in web scraping, browser automation, and testing workflows.</strong>
+</p>
 
-Easily integrate automated CAPTCHA solving capabilities into your JavaScript/TypeScript web scraping, automation, and testing scripts. Fully compatible with **Puppeteer**, **Playwright**, **Cypress**, and raw HTTP requests.
+<p align="center">
+  <a href="https://www.npmjs.com/package/@zennolab_com/capmonstercloud-client"><img src="https://img.shields.io/npm/v/@zennolab_com/capmonstercloud-client.svg?style=flat-square&color=blue" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@zennolab_com/capmonstercloud-client"><img src="https://img.shields.io/npm/dm/@zennolab_com/capmonstercloud-client.svg?style=flat-square&color=green" alt="npm downloads"></a>
+  <a href="https://github.com/CapMonsterCloud/capmonster-nodejs-captcha-solver/stargazers"><img src="https://img.shields.io/github/stars/CapMonsterCloud/capmonster-nodejs-captcha-solver?style=flat-square&color=yellow" alt="GitHub Stars"></a>
+  <a href="https://github.com/CapMonsterCloud/capmonster-nodejs-captcha-solver/network/members"><img src="https://img.shields.io/github/forks/CapMonsterCloud/capmonster-nodejs-captcha-solver?style=flat-square" alt="GitHub Forks"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square" alt="License: MIT"></a>
+</p>
 
-**[👉 Get your Free API Key and Start Bypassing CAPTCHAs](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)** 
+---
+
+Official JavaScript and TypeScript client library for [CapMonster Cloud](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme). Add automated CAPTCHA-solving tasks to **Node.js, TypeScript, Puppeteer, Playwright, Cypress, and HTTP-based** workflows.
+
+Use the SDK with supported CAPTCHA and anti-bot task types, including **reCAPTCHA v2/v3/Enterprise, Cloudflare Turnstile, GeeTest, DataDome, Amazon WAF, Imperva, and image-to-text tasks**.
+
+**[👉 Get your Free API Key & Free Trial Balance on CapMonster Cloud](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)**
+
+---
+
+## ⚡ Highlights
+
+- ⚡ **Node.js & TypeScript:** Typed request models for supported task types.
+- 🧩 **Modern CAPTCHA coverage:** Work with reCAPTCHA, Turnstile, GeeTest, Amazon WAF, DataDome, Imperva, and more.
+- 🌐 **Automation-ready:** Use with Playwright, Puppeteer, Cypress, scraping tools, and custom HTTP clients.
+- 🛠️ **Dedicated or custom payloads:** Use request classes or `CommonCaptcha` to submit a full task payload.
+- 📖 **Official docs:** Current task parameters and API methods are maintained in CapMonster Cloud documentation.
 
 ---
 
 ## 📦 Installation
 
-Install the client library via [NPM](https://www.npmjs.com/package/@zennolab_com/capmonstercloud-client)
+Install the package from npm:
 
 ```bash
-npm i @zennolab_com/capmonstercloud-client
+npm install @zennolab_com/capmonstercloud-client
 ```
 
-## 🚀 Quick Start (TypeScript)
+---
 
-1. Get your API key in the [CapMonster Cloud Dashboard](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
-2. Install the package.
-3. Copy the snippet below, replace `YOUR_API_KEY`, and run your scraper.
+## 🚀 Quick Start
 
-### Bypass reCAPTCHA v2
+Create an API key in the [CapMonster Cloud Dashboard](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme), install the package, then use one of the examples below.
+
+### 1. Solve reCAPTCHA v2 (TypeScript)
 
 ```ts
 import {
@@ -45,10 +72,10 @@ const result = await client.Solve(
   }),
 );
 
-console.log(result.solution); // { gRecaptchaResponse: '...' }
+console.log(result.solution);
 ```
 
-### Bypass Cloudflare Turnstile
+### 2. Solve Cloudflare Turnstile (TypeScript)
 
 ```ts
 import {
@@ -68,52 +95,54 @@ const result = await client.Solve(
   }),
 );
 
-console.log(result.solution); // { token: '...' }
+console.log(result.solution);
 ```
 
-## 💻 Usage with Node.js (CommonJS)
-
-If you are using standard CommonJS (`require`) without TypeScript:
+### 3. CommonJS Example and Balance Check
 
 ```javascript
-const { CapMonsterCloudClientFactory, ClientOptions, RecaptchaV2Request } = require('@zennolab_com/capmonstercloud-client');
+const {
+  CapMonsterCloudClientFactory,
+  ClientOptions,
+  RecaptchaV2Request,
+} = require('@zennolab_com/capmonstercloud-client');
 
 async function run() {
-  const cmcClient = CapMonsterCloudClientFactory.Create(new ClientOptions({ clientKey: '<your capmonster.cloud API key>' }));
-  
-  // Check your balance
-  console.log(await cmcClient.getBalance());
+  const client = CapMonsterCloudClientFactory.Create(
+    new ClientOptions({ clientKey: 'YOUR_API_KEY' }),
+  );
 
-  const recaptchaV2Request = new RecaptchaV2Request({
+  console.log('Balance:', await client.getBalance());
+
+  const task = new RecaptchaV2Request({
     websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
     websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
   });
 
-  console.log(await cmcClient.Solve(recaptchaV2Request));
+  const result = await client.Solve(task);
+  console.log(result.solution);
 }
 
-run()
-  .then(() => {
-    console.log('DONE');
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.error('Error solving CAPTCHA:', err);
-    process.exit(1);
-  });
+run().catch(console.error);
 ```
 
-## 🛠 Usage with CommonCaptcha (Custom Payload)
+### 4. Submit a Custom Payload with `CommonCaptcha`
 
-Use `CommonCaptcha` when you want to pass a full task payload directly (for example, when a new CAPTCHA type is released and not yet covered by a dedicated request class).
+Use `CommonCaptcha` when you need to provide a complete task payload directly.
 
 ```javascript
-const { CapMonsterCloudClientFactory, ClientOptions, CommonCaptcha } = require('@zennolab_com/capmonstercloud-client');
+const {
+  CapMonsterCloudClientFactory,
+  ClientOptions,
+  CommonCaptcha,
+} = require('@zennolab_com/capmonstercloud-client');
 
 async function run() {
-  const cmcClient = CapMonsterCloudClientFactory.Create(new ClientOptions({ clientKey: '<your capmonster.cloud API key>' }));
+  const client = CapMonsterCloudClientFactory.Create(
+    new ClientOptions({ clientKey: 'YOUR_API_KEY' }),
+  );
 
-  const commonCaptcha = new CommonCaptcha({
+  const task = new CommonCaptcha({
     task: {
       type: 'RecaptchaV2Task',
       websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
@@ -121,84 +150,95 @@ async function run() {
     },
   });
 
-  console.log(await cmcClient.Solve(commonCaptcha));
+  console.log(await client.Solve(task));
 }
 
-run();
+run().catch(console.error);
 ```
 
-## 🌐 Browser Usage (Frontend)
+---
 
-Browser implementations use native [fetch](https://caniuse.com/fetch) instead of Node's [http(s)](https://nodejs.org/api/http.html). For browser usage, you need a module bundler like [Webpack](https://webpack.js.org/).
+## 🛡️ Supported Task Families
 
-```javascript
-import { CapMonsterCloudClientFactory, ClientOptions, RecaptchaV2Request } from '@zennolab_com/capmonstercloud-client';
+Refer to the official [Supported CAPTCHA Types](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme) for current task parameters, response formats, and examples.
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const cmcClient = CapMonsterCloudClientFactory.Create(new ClientOptions({ clientKey: '<your capmonster.cloud API key>' }));
-  console.log(await cmcClient.getBalance());
+| Task family | Example request classes in this SDK |
+| :--- | :--- |
+| **reCAPTCHA** | `RecaptchaV2Request`, `RecaptchaV2EnterpriseRequest`, `RecaptchaV3ProxylessRequest` |
+| **Cloudflare Turnstile** | `TurnstileRequest` |
+| **GeeTest** | `GeeTestRequest` |
+| **Amazon WAF** | `AmazonRequest` |
+| **Image-to-Text** | `ImageToTextRequest` |
+| **Complex image tasks** | `ComplexImageRecaptchaRequest`, `ComplexImageTaskRecognitionRequest` |
+| **Custom anti-bot tasks** | `DataDomeRequest`, `ImpervaRequest`, `TSPDRequest`, and other supported custom-task classes |
 
-  const recaptchaV2Request = new RecaptchaV2Request({
-    websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
-    websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
-    proxy: {
-      proxyType: 'http',
-      proxyAddress: '8.8.8.8',
-      proxyPort: 8080,
-      proxyLogin: 'proxyLoginHere',
-      proxyPassword: 'proxyPasswordHere',
-    },
-    // check actual user agent here: https://capmonster.cloud/api/useragent/actual
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36',
-  });
+---
 
-  console.log(await cmcClient.Solve(recaptchaV2Request));
-});
-```
+## 🌐 Browser Use
+
+The package can also be bundled for browser use. Browser implementations use native [`fetch`](https://caniuse.com/fetch), so use a compatible module bundler such as [Webpack](https://webpack.js.org/) when integrating it into a frontend build.
+
+> Keep API keys private. Do not expose production CapMonster Cloud API keys in public frontend code.
+
+---
 
 ## 🐛 Debugging
 
-For debugging, set the `DEBUG` environmental variable to one of the [possible values](/src/Logger.ts) (see the [debug module](https://www.npmjs.com/package/debug)).
+Set the `DEBUG` environment variable to enable the package logger:
 
 ```bash
 DEBUG=cmc-* node app.js
 ```
 
-## ⚡ Supported CAPTCHA Recognition Requests
+---
 
-### Classic captcha tasks
+## 🛠️ How It Works
 
-- [AmazonRequest](https://zenno.link/doc-amazon-waf)
-- [BinanceRequest](https://zenno.link/doc-binance)
-- [FunCaptchaRequest](https://zenno.link/doc-funcaptcha)
-- [GeeTestRequest](https://zenno.link/doc-geetest)
-- [ImageToTextRequest](https://zenno.link/doc-imagetotext)
-- [MTCaptchaRequest](https://zenno.link/doc-mtcaptcha)
-- [ProsopoRequest](https://zenno.link/doc-prosopo)
-- [RecaptchaV2Request](https://zenno.link/doc-recaptcha2)
-- [RecaptchaV2EnterpriseRequest](https://zenno.link/doc-recaptcha2e)
-- [RecaptchaV3ProxylessRequest](https://zenno.link/doc-recaptcha3)
-- [TurnstileRequest - Cloudflare Turnstile](https://zenno.link/doc-cloudflare-turnstile)
-- [TurnstileRequest - Cloudflare Challenge](https://zenno.link/doc-cloudflare-challenge)
-- [TurnstileRequest - Cloudflare Waiting Room](https://zenno.link/doc-cloudflare-waitingroom)
-- [YidunRequest](https://zenno.link/doc-yidun)
-
-### Custom tasks (anti-bot / WAF / custom challenge systems)
-
-- [AlibabaRequest](https://zenno.link/doc-customtask-alibaba)
-- [AltchaRequest](https://zenno.link/doc-customtask-altcha)
-- [BasiliskRequest](https://zenno.link/doc-customtask-basilisk)
-- [DataDomeRequest](https://zenno.link/doc-customtask-datadome)
-- [FriendlyRequest](https://zenno.link/doc-customtask-friendly)
-- [HuntRequest](https://zenno.link/doc-customtask-hunt)
-- [ImpervaRequest](https://zenno.link/doc-customtask-imperva)
-- [TenDIRequest](https://zenno.link/doc-customtask-tendi)
-- [TSPDRequest](https://zenno.link/doc-customtask-tspd)
-
-### Complex image tasks (grid / dynamic image selection tasks)
-
-- [ComplexImageRecaptchaRequest](https://zenno.link/doc-complextask-rc)
-- [ComplexImageTaskRecognitionRequest](https://zenno.link/doc-complextask-recognition)
+```text
+[ Node.js Script / Browser Automation ]
+                    │
+                    ▼
+      [ Create task request with target data ]
+                    │
+                    ▼
+[ CapMonster Cloud Node.js SDK ] ──► createTask API request
+                    │
+                    ▼
+       [ SDK waits for the task result ]
+                    │
+                    ▼
+[ Receive token / solution ] ──► Use it in your workflow
+```
 
 ---
-**[Official Documentation](https://docs.capmonster.cloud/docs/getting-start/)** | **[Register Account](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)**
+
+## ⚙️ Best Practices
+
+- **Use the right task model:** Choose a request type that matches the target protection; validate all required fields against the official documentation.
+- **Keep session context consistent:** For tasks that use a proxy, align the proxy settings with the associated browser or scraping session.
+- **Use tokens promptly:** CAPTCHA tokens can expire, so submit or inject the returned solution immediately.
+- **Monitor balance and API responses:** See the API methods reference for `createTask`, `getTaskResult`, and `getBalance`.
+
+---
+
+## 📚 Documentation & Support
+
+- 📖 [Getting Started](https://docs.capmonster.cloud/docs/getting-start/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 🧩 [Supported CAPTCHA Types](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- ⚙️ [API Methods: createTask, getTaskResult, getBalance](https://docs.capmonster.cloud/docs/methods/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 🌐 [Browser Extension Guides](https://docs.capmonster.cloud/docs/extension/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 💬 [CapMonster Cloud](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+
+---
+
+## ⭐ Star History
+
+If this SDK helps your automation or testing workflow, please consider giving the repository a star.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=CapMonsterCloud/capmonster-nodejs-captcha-solver&type=Date)](https://star-history.com/#CapMonsterCloud/capmonster-nodejs-captcha-solver&Date)
+
+---
+
+## 📄 License
+
+[MIT](LICENSE) © [ZennoLab](https://zennolab.com/) / [CapMonster Cloud](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
