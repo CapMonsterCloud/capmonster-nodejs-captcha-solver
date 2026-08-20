@@ -167,4 +167,70 @@ Refer to the official [Supported CAPTCHA Types](https://docs.capmonster.cloud/do
 | **reCAPTCHA** | `RecaptchaV2Request`, `RecaptchaV2EnterpriseRequest`, `RecaptchaV3ProxylessRequest` |
 | **Cloudflare Turnstile** | `TurnstileRequest` |
 | **GeeTest** | `GeeTestRequest` |
-| **Amazon
+| **Amazon WAF** | `AmazonRequest`, `AmazonProxylessRequest` |
+| **Image-to-Text** | `ImageToTextRequest` |
+| **Complex image tasks** | `ComplexImageRecaptchaRequest`, `ComplexImageTaskRecognitionRequest` |
+| **Custom anti-bot tasks** | `DataDomeRequest`, `ImpervaRequest`, `TenDIRequest`, `ProsopoRequest`, `BasiliskRequest` |
+
+---
+
+## 🌐 Browser Use
+
+The package can also be bundled for browser use. Browser implementations use native [`fetch`](https://caniuse.com/fetch), so use a compatible module bundler such as [Webpack](https://webpack.js.org/) when integrating it into a frontend build.
+
+> Keep API keys private. Do not expose production CapMonster Cloud API keys in public frontend code.
+
+---
+
+## 🐛 Debugging
+
+Set the `DEBUG` environment variable to enable the package logger:
+
+```bash
+DEBUG=cmc-* node app.js
+```
+
+---
+
+## 🛠️ How It Works
+
+```text
+[ Node.js Script / Browser Automation ]
+                    │
+                    ▼
+      [ Create task request with target data ]
+                    │
+                    ▼
+[ CapMonster Cloud Node.js SDK ] ──► createTask API request
+                    │
+                    ▼
+       [ SDK waits for the task result ]
+                    │
+                    ▼
+[ Receive token / solution ] ──► Use it in your workflow
+```
+
+---
+
+## ⚙️ Best Practices
+
+- **Use the right task model:** Choose a request type that matches the target protection; validate all required fields against the official documentation.
+- **Keep session context consistent:** For tasks that use a proxy, align the proxy settings with the associated browser or scraping session.
+- **Use tokens promptly:** CAPTCHA tokens can expire, so submit or inject the returned solution immediately.
+- **Monitor balance and API responses:** See the API methods reference for `createTask`, `getTaskResult`, and `getBalance`.
+
+---
+
+## 📚 Documentation & Support
+
+- 📖 [Getting Started](https://docs.capmonster.cloud/docs/getting-start/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 🧩 [Supported CAPTCHA Types](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- ⚙️ [API Methods: createTask, getTaskResult, getBalance](https://docs.capmonster.cloud/docs/methods/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 🌐 [Browser Extension Guides](https://docs.capmonster.cloud/docs/extension/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 💬 [CapMonster Cloud](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+
+---
+
+## 📄 License
+
+[MIT](./LICENSE) © [ZennoLab](https://zennolab.com/) / [CapMonster Cloud](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
