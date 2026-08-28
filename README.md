@@ -229,6 +229,13 @@ DEBUG=cmc-* node app.js
 - 🌐 [Browser Extension Guides](https://docs.capmonster.cloud/docs/extension/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
 - 💬 [CapMonster Cloud](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
 
+## Other official SDKs
+
+- [Python](https://github.com/CapMonsterCloud/capmonster-python-captcha-solver)
+- [.NET](https://github.com/CapMonsterCloud/capmonster-dotnet-captcha-solver)
+- [n8n](https://github.com/CapMonsterCloud/capmonster-n8n-captcha-solver)
+- [API Docs](https://github.com/CapMonsterCloud/capmonster-captcha-solver-docs)
+
 ---
 
 ## 📄 License
