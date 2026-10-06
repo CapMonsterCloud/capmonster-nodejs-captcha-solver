@@ -1,0 +1,144 @@
+{
+  "apiDocsIndex": "https://docs.capmonster.cloud/docs/captchas/",
+  "apiMethods": "https://docs.capmonster.cloud/docs/methods/",
+  "gettingStarted": "https://docs.capmonster.cloud/docs/getting-start/",
+  "tasks": [
+    {
+      "sdkClass": "RecaptchaV2Request",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/recaptcha-v2/"
+    },
+    {
+      "sdkClass": "RecaptchaV2EnterpriseRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/recaptcha-v2-enterprise/"
+    },
+    {
+      "sdkClass": "RecaptchaV3ProxylessRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/recaptcha-v3/"
+    },
+    {
+      "sdkClass": "RecaptchaV3EnterpriseRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/recaptcha-v3-enterprise/"
+    },
+    {
+      "sdkClass": "TurnstileRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/turnstile-task/"
+    },
+    {
+      "sdkClass": "HCaptchaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/hcaptcha/"
+    },
+    {
+      "sdkClass": "FunCaptchaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/funcaptcha/"
+    },
+    {
+      "sdkClass": "GeeTestRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/geetest/"
+    },
+    {
+      "sdkClass": "ImageToTextRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/image-to-text/"
+    },
+    {
+      "sdkClass": "AmazonRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/amazon-task/"
+    },
+    {
+      "sdkClass": "BinanceRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/binance/"
+    },
+    {
+      "sdkClass": "ProsopoRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/prosopo/"
+    },
+    {
+      "sdkClass": "YidunRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/yidun/"
+    },
+    {
+      "sdkClass": "MTCaptchaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/mtcaptcha/"
+    },
+    {
+      "sdkClass": "DataDomeRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/datadome/"
+    },
+    {
+      "sdkClass": "ImpervaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/incapsula/"
+    },
+    {
+      "sdkClass": "TenDIRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/tendi/"
+    },
+    {
+      "sdkClass": "BasiliskRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/Basilisk-task/"
+    },
+    {
+      "sdkClass": "TemuRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/temu/"
+    },
+    {
+      "sdkClass": "CastleRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/castle/"
+    },
+    {
+      "sdkClass": "AltchaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/altcha-task/"
+    },
+    {
+      "sdkClass": "FriendlyRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/friendly-captcha/"
+    },
+    {
+      "sdkClass": "TSPDRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/tspd/"
+    },
+    {
+      "sdkClass": "HuntRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/hunt-task/",
+      "requiredFields": ["websiteURL", "metadata.apiGetLib", "proxy"],
+      "optionalFields": ["userAgent", "metadata.data", "metadata.widgetUrl"]
+    },
+    {
+      "sdkClass": "AlibabaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/alibaba-task/",
+      "requiredFields": ["websiteURL"],
+      "optionalFields": [
+        "userAgent",
+        "proxy",
+        "metadata.sceneId",
+        "metadata.prefix",
+        "metadata.userId",
+        "metadata.userUserId",
+        "metadata.verifyType",
+        "metadata.region",
+        "metadata.UserCertifyId",
+        "metadata.apiGetLib",
+        "metadata.punishUrl",
+        "metadata.cookieRequired"
+      ]
+    },
+    {
+      "sdkClass": "ComplexImageRecaptchaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/complex-image/"
+    },
+    {
+      "sdkClass": "ComplexImageHCaptchaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/complex-image/"
+    },
+    {
+      "sdkClass": "ComplexImageFunCaptchaRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/complex-image/"
+    },
+    {
+      "sdkClass": "ComplexImageTaskRecognitionRequest",
+      "docs": "https://docs.capmonster.cloud/docs/captchas/complex-image-recognition/"
+    },
+    {
+      "sdkClass": "CommonCaptcha",
+      "docs": "https://docs.capmonster.cloud/docs/methods/"
+    }
+  ]
+}

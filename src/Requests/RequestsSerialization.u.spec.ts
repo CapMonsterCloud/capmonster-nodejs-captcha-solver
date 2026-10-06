@@ -171,15 +171,17 @@ describe('Check unit tests for SerializeObject()', () => {
     });
   });
 
-  it(`should serialize FunCaptchaProxylessRequest`, () => {
+  it(`should serialize FunCaptchaRequest without optional fields`, () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
       task: new FunCaptchaRequest({
         websiteURL: 'https://funcaptcha.com/fc/api/nojs/?pkey=69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC',
         websitePublicKey: '69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC',
-        data: '{"blob":"dyXvXANMbHj1iDyz.Qj97JtSqR2n%2BuoY1V%2FbdgbrG7p%2FmKiqdU9AwJ6MifEt0np4vfYn6TTJDJEfZDlcz9Q1XMn9przeOV%2FCr2%2FIpi%2FC1s%3D"}',
-        funcaptchaApiJSSubdomain: 'mywebsite-api.funcaptcha.com',
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        proxy: {
+          proxyType: 'http',
+          proxyAddress: '8.8.8.8',
+          proxyPort: 8080,
+        },
       }),
     });
 
@@ -189,9 +191,9 @@ describe('Check unit tests for SerializeObject()', () => {
         type: 'FunCaptchaTask',
         websiteURL: 'https://funcaptcha.com/fc/api/nojs/?pkey=69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC',
         websitePublicKey: '69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC',
-        data: '{"blob":"dyXvXANMbHj1iDyz.Qj97JtSqR2n%2BuoY1V%2FbdgbrG7p%2FmKiqdU9AwJ6MifEt0np4vfYn6TTJDJEfZDlcz9Q1XMn9przeOV%2FCr2%2FIpi%2FC1s%3D"}',
-        funcaptchaApiJSSubdomain: 'mywebsite-api.funcaptcha.com',
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        proxyType: 'http',
+        proxyAddress: '8.8.8.8',
+        proxyPort: 8080,
       },
     });
   });
@@ -300,6 +302,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteURL: 'https://example.com/geetest.php',
         gt: '81dc9bdb52d04dc20036dbd8313ed055',
         challenge: 'd93591bdf7860e1e4ee2fca799911215',
+        version: 3,
       }),
     });
 
@@ -321,7 +324,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteURL: 'https://example.com/geetest.php',
         gt: '81dc9bdb52d04dc20036dbd8313ed055',
         challenge: 'd93591bdf7860e1e4ee2fca799911215',
-        version: '4',
+        version: 4,
         initParameters: {
           riskType: 'slide',
         },
@@ -334,7 +337,7 @@ describe('Check unit tests for SerializeObject()', () => {
         type: 'GeeTestTask',
         websiteURL: 'https://example.com/geetest.php',
         gt: '81dc9bdb52d04dc20036dbd8313ed055',
-        version: '4',
+        version: 4,
         initParameters: {
           riskType: 'slide',
         },
@@ -349,6 +352,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteURL: 'https://example.com/geetest.php',
         gt: '81dc9bdb52d04dc20036dbd8313ed055',
         challenge: 'd93591bdf7860e1e4ee2fca799911215',
+        version: 3,
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
         proxy: {
           proxyType: 'https',
@@ -383,7 +387,7 @@ describe('Check unit tests for SerializeObject()', () => {
       task: new GeeTestRequest({
         websiteURL: 'https://example.com/geetest.php',
         gt: '81dc9bdb52d04dc20036dbd8313ed055',
-        version: '4',
+        version: 4,
         initParameters: {
           riskType: 'slide',
         },
@@ -403,7 +407,7 @@ describe('Check unit tests for SerializeObject()', () => {
       task: {
         type: 'GeeTestTask',
         websiteURL: 'https://example.com/geetest.php',
-        version: '4',
+        version: 4,
         gt: '81dc9bdb52d04dc20036dbd8313ed055',
         initParameters: {
           riskType: 'slide',
@@ -612,6 +616,11 @@ describe('Check unit tests for SerializeObject()', () => {
           datadomeCookie: '',
           datadomeVersion: 'new',
         },
+        proxy: {
+          proxyType: 'http',
+          proxyAddress: '8.8.8.8',
+          proxyPort: 8080,
+        },
       }),
     });
 
@@ -627,6 +636,9 @@ describe('Check unit tests for SerializeObject()', () => {
           datadomeCookie: '',
           datadomeVersion: 'new',
         },
+        proxyType: 'http',
+        proxyAddress: '8.8.8.8',
+        proxyPort: 8080,
       },
     });
   });
@@ -682,6 +694,11 @@ describe('Check unit tests for SerializeObject()', () => {
           incapsulaCookies: 'incap_ses_1166_2930313=br7iX33ZNCtf3HlpEXcuEDzz72cAAAAA0suDnBGrq/iA0J4oERYzjQ==',
           reese84UrlEndpoint: 'Built-with-the-For-hopence-Hurleysurfecting-the-',
         },
+        proxy: {
+          proxyType: 'http',
+          proxyAddress: '8.8.8.8',
+          proxyPort: 8080,
+        },
       }),
     });
 
@@ -697,6 +714,9 @@ describe('Check unit tests for SerializeObject()', () => {
           incapsulaCookies: 'incap_ses_1166_2930313=br7iX33ZNCtf3HlpEXcuEDzz72cAAAAA0suDnBGrq/iA0J4oERYzjQ==',
           reese84UrlEndpoint: 'Built-with-the-For-hopence-Hurleysurfecting-the-',
         },
+        proxyType: 'http',
+        proxyAddress: '8.8.8.8',
+        proxyPort: 8080,
       },
     });
   });
@@ -828,6 +848,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
         metadata: {
           captchaUrl: 'https://example.com/captcha',
+          aidEncrypted: 'HHuVfL451oAYXSwVa87xnU4QHER9ufsPpaSomCugX5Il',
         },
       }),
     });
@@ -842,6 +863,7 @@ describe('Check unit tests for SerializeObject()', () => {
         websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
         metadata: {
           captchaUrl: 'https://example.com/captcha',
+          aidEncrypted: 'HHuVfL451oAYXSwVa87xnU4QHER9ufsPpaSomCugX5Il',
         },
       },
     });
@@ -914,6 +936,58 @@ describe('Check unit tests for SerializeObject()', () => {
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       },
     });
+  });
+
+  it('should serialize Amazon captcha script flow', () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new AmazonRequest({
+        websiteURL: 'https://site.com',
+        websiteKey: 'h15hX7brbaRTRZa1_1',
+        captchaScript: 'https://example.com/jsapi.js',
+      }),
+    });
+
+    expect(JSON.parse(JSON.stringify(serialized.task))).toEqual({
+      type: 'AmazonTask',
+      websiteURL: 'https://site.com',
+      websiteKey: 'h15hX7brbaRTRZa1_1',
+      captchaScript: 'https://example.com/jsapi.js',
+    });
+  });
+
+  it('should serialize Amazon invisible challenge flow', () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new AmazonRequest({
+        websiteURL: 'https://site.com',
+        challengeScript: 'https://example.com/challenge.js',
+        context: '',
+        iv: '',
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      task: {
+        type: 'AmazonTask',
+        websiteURL: 'https://site.com',
+        challengeScript: 'https://example.com/challenge.js',
+        context: '',
+        iv: '',
+      },
+    });
+  });
+
+  it('should reject an Amazon request that mixes captcha script and challenge fields', () => {
+    expect(
+      () =>
+        new AmazonRequest({
+          websiteURL: 'https://site.com',
+          websiteKey: 'key',
+          captchaScript: 'https://example.com/jsapi.js',
+          challengeScript: 'https://example.com/challenge.js',
+        } as never),
+    ).toThrow(/one documented flow/);
   });
 
   it(`should serialize AlibabaRequest`, () => {

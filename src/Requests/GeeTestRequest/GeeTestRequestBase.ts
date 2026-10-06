@@ -9,7 +9,7 @@ export type GeeTestRequestBaseIn = {
   geetestApiServerSubdomain?: string;
   geetestGetLib?: string;
   userAgent?: string;
-  version?: '3' | '4';
+  version: 3 | 4;
   initParameters?: InitParamsType;
 } & CaptchaRequestBaseIn;
 
@@ -46,9 +46,9 @@ export abstract class GeeTestRequestBase extends CaptchaRequestBase {
   public challenge?: string;
 
   /**
-   * Version of Geetest.
+   * GeeTest version. Send 3 or 4 as a number.
    */
-  public version?: '3' | '4';
+  public version!: 3 | 4;
 
   /**
    * May be required for some sites.

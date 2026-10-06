@@ -3,6 +3,7 @@ import { CaptchaRequestBase, CaptchaRequestBaseIn } from '../CaptchaRequestBase'
 export type ProsopoRequestBaseIn = {
   websiteURL: string;
   websiteKey: string;
+  userAgent?: string;
 } & CaptchaRequestBaseIn;
 
 /**
@@ -19,9 +20,15 @@ export abstract class ProsopoRequestBase extends CaptchaRequestBase {
    */
   public websiteKey!: string;
 
-  constructor({ type, nocache, websiteURL, websiteKey }: ProsopoRequestBaseIn) {
+  /**
+   * Browser User-Agent. Pass only the actual UA from Windows OS.
+   */
+  public userAgent?: string;
+
+  constructor({ type, nocache, websiteURL, websiteKey, userAgent }: ProsopoRequestBaseIn) {
     super({ type, nocache });
     this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.websiteKey = websiteKey;
+    this.userAgent = userAgent;
   }
 }

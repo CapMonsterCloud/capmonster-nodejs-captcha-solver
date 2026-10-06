@@ -4,6 +4,17 @@ import { Agent } from 'https';
 import { isNode } from './Utils';
 import { debugHttp, debugNet } from './Logger';
 import { ClientURL } from './ClientURL';
+import { nodeRequire } from './nodeRequire';
+
+type NodeClientRequest = {
+  on(event: string, listener: (err: Error) => void): NodeClientRequest;
+  end(body?: string): void;
+};
+
+type NodeHttpLike = {
+  Agent: new (options?: { keepAlive?: boolean; timeout?: number }) => Agent;
+  request(options: object, callback: (res: IncomingMessage) => void): NodeClientRequest;
+};
 
 type APIMethod = 'getBalance' | 'createTask' | 'getTaskResult';
 
@@ -83,8 +94,7 @@ export class HttpClient {
   private createAgent(): Promise<void> {
     return new Promise((resolve) => {
       debugNet('Try create agent instance');
-      // require('http') or require('https') hide require call from browser bundler, e.g. webpack
-      const requester = module[`require`].call(module, this.url.protocol === 'https:' ? 'https' : 'http');
+      const requester = nodeRequire<NodeHttpLike>(this.url.protocol === 'https:' ? 'https' : 'http');
       this._agent = new requester.Agent({ keepAlive: true, timeout: this.timeout });
       resolve();
     });
@@ -201,8 +211,7 @@ export class HttpClient {
       debugHttp('Request options', options);
       debugHttp('Request body', data);
       if (isNode) {
-        // require('http') or require('https') hide require call from browser bundler, e.g. webpack
-        const requester = module[`require`].call(module, this.url.protocol === 'https:' ? 'https' : 'http');
+        const requester = nodeRequire<NodeHttpLike>(this.url.protocol === 'https:' ? 'https' : 'http');
         requester
           .request(options, (res: IncomingMessage) => {
             debugHttp('Response headers received', res.statusCode, res.statusMessage);

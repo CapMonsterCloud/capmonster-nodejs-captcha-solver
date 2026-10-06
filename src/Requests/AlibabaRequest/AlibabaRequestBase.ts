@@ -9,6 +9,8 @@ export type AlibabaMetadata = {
   region?: string;
   UserCertifyId?: string;
   apiGetLib?: string;
+  punishUrl?: string;
+  cookieRequired?: boolean;
 };
 
 export type AlibabaRequestBaseIn = {

@@ -30,9 +30,11 @@ function resolveImportPath(filePath, importPath) {
 
 function fixImports(filePath) {
   const source = fs.readFileSync(filePath, 'utf8');
-  const fixed = source.replace(/(from\s+['"])([^'"]+)(['"])/g, (_, prefix, importPath, suffix) => {
-    return `${prefix}${resolveImportPath(filePath, importPath)}${suffix}`;
-  });
+  const fixed = source
+    .replace(/(from\s+['"])([^'"]+)(['"])/g, (_, prefix, importPath, suffix) => {
+      return `${prefix}${resolveImportPath(filePath, importPath)}${suffix}`;
+    })
+    .replace(/eval\((['"])import\.meta\.url\1\)/g, 'import.meta.url');
   fs.writeFileSync(filePath, fixed);
 }
 
