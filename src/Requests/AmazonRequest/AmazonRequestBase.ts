@@ -1,18 +1,58 @@
 import { CaptchaRequestBase, CaptchaRequestBaseIn } from '../CaptchaRequestBase';
 
-export type AmazonRequestBaseIn = {
+type AmazonRequestCommonIn = {
   websiteURL: string;
-  challengeScript: string;
+  cookieSolution?: boolean;
+  userAgent?: string;
+  nocache?: boolean;
+};
+
+/**
+ * Captcha script flow: jsapi.js. https://docs.capmonster.cloud/docs/captchas/amazon-task/
+ */
+export type AmazonCaptchaScriptIn = AmazonRequestCommonIn & {
+  websiteKey: string;
   captchaScript: string;
+};
+
+/**
+ * Challenge flow: challenge.js plus gokuProps key, context, and iv.
+ * captcha.js is optional when the page only loads a challenge.
+ */
+export type AmazonChallengeIn = AmazonRequestCommonIn & {
+  challengeScript: string;
   websiteKey: string;
   context: string;
   iv: string;
-  cookieSolution?: boolean;
-  userAgent?: string;
-} & CaptchaRequestBaseIn;
+  captchaScript?: string;
+};
 
 /**
- * Base GeeTest recognition request
+ * Invisible captcha: only challenge.js is loaded.
+ * context and iv are required and may be empty strings.
+ */
+export type AmazonInvisibleChallengeIn = AmazonRequestCommonIn & {
+  challengeScript: string;
+  context: string;
+  iv: string;
+};
+
+export type AmazonRequestBaseIn =
+  | (AmazonCaptchaScriptIn & CaptchaRequestBaseIn)
+  | (AmazonChallengeIn & CaptchaRequestBaseIn)
+  | (AmazonInvisibleChallengeIn & CaptchaRequestBaseIn);
+
+type AmazonRequestStoredIn = AmazonRequestCommonIn &
+  CaptchaRequestBaseIn & {
+    challengeScript?: string;
+    captchaScript?: string;
+    websiteKey?: string;
+    context?: string;
+    iv?: string;
+  };
+
+/**
+ * Base Amazon recognition request.
  */
 export abstract class AmazonRequestBase extends CaptchaRequestBase {
   /**
@@ -23,27 +63,27 @@ export abstract class AmazonRequestBase extends CaptchaRequestBase {
   /**
    * Link to challenge.js
    */
-  public challengeScript!: string;
+  public challengeScript?: string;
 
   /**
-   * Link to captcha.js
+   * Link to captcha.js or jsapi.js
    */
-  public captchaScript!: string;
+  public captchaScript?: string;
 
   /**
-   * A string that can be retrieved from an html page with a captcha or with javascript by executing the window.gokuProps.key
+   * Captcha apiKey, or window.gokuProps.key for the challenge flow.
    */
-  public websiteKey!: string;
+  public websiteKey?: string;
 
   /**
-   * A string that can be retrieved from an html page with a captcha or with javascript by executing the window.gokuProps.context
+   * window.gokuProps.context. An empty string is valid for an invisible captcha.
    */
-  public context!: string;
+  public context?: string;
 
   /**
-   * A string that can be retrieved from an html page with a captcha or with javascript by executing the window.gokuProps.iv
+   * window.gokuProps.iv. An empty string is valid for an invisible captcha.
    */
-  public iv!: string;
+  public iv?: string;
 
   /**
    * By default false. If you need to use cookies "aws-waf-token", specify the value true. Otherwise, what you will get in return is "captcha_voucher" and "existing_token".
@@ -66,7 +106,7 @@ export abstract class AmazonRequestBase extends CaptchaRequestBase {
     iv,
     cookieSolution,
     userAgent,
-  }: AmazonRequestBaseIn) {
+  }: AmazonRequestStoredIn) {
     super({ type, nocache });
     this.websiteURL = this.validateWebsiteURL(websiteURL);
     this.challengeScript = challengeScript;

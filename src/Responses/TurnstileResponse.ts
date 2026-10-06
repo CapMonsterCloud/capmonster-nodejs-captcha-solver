@@ -3,8 +3,12 @@
  */
 export type TurnstileResponse = {
   /**
-   * Captcha answer
+   * Token for Turnstile and Cloudflare Challenge (token).
    */
-  token: string;
-  userAgent: string;
+  token?: string;
+  /**
+   * Cookie for Cloudflare Challenge (cf_clearance) and Waiting Room.
+   */
+  cf_clearance?: string;
+  userAgent?: string;
 };

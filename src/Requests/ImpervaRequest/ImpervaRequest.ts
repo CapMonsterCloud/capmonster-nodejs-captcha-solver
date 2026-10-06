@@ -3,11 +3,12 @@ import { ImpervaRequestBase, ImpervaRequestBaseIn } from './ImpervaRequestBase';
 import { ProxyInfo, ProxyInfoIn } from '../ProxyInfo';
 
 export type ImpervaRequestIn = Pick<ImpervaRequestBaseIn, Exclude<keyof ImpervaRequestBaseIn, 'type' | '_class'>> & {
-  proxy?: ProxyInfoIn;
+  proxy: ProxyInfoIn;
 };
 
 /**
  * Imperva (Incapsula) recognition request.
+ * Own proxy is required.
  * {@link https://docs.capmonster.cloud/docs/captchas/incapsula/}
  */
 export class ImpervaRequest extends ImpervaRequestBase {
@@ -15,9 +16,6 @@ export class ImpervaRequest extends ImpervaRequestBase {
 
   constructor({ proxy, ...argsObj }: ImpervaRequestIn) {
     super({ type: TaskType.CustomTask, _class: 'Imperva', ...argsObj });
-
-    if (proxy) {
-      Object.assign(this, new ProxyInfo(proxy));
-    }
+    Object.assign(this, new ProxyInfo(proxy));
   }
 }

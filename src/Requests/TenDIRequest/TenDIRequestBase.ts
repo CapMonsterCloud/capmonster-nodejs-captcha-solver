@@ -2,6 +2,11 @@ import { CaptchaRequestBase, CaptchaRequestBaseIn } from '../CaptchaRequestBase'
 
 export type TenDIMetadata = {
   captchaUrl?: string;
+  /**
+   * Single-use Aid value from the target site.
+   * Omit when the site does not return Aid. Obtain a new value for every task.
+   */
+  aidEncrypted?: string;
 };
 
 export type TenDIRequestBaseIn = {

@@ -11,6 +11,10 @@ export type HuntMetadata = {
    * The `data` parameter (required only in some solving modes).
    */
   data?: string;
+  /**
+   * Full widget URL. Do not send together with `data`.
+   */
+  widgetUrl?: string;
 };
 
 export type HuntRequestBaseIn = {

@@ -175,7 +175,8 @@ export class CapMonsterCloudClient {
     }
   }
   /**
-   * Solve FunCaptchaTask task
+ч>>ч>>   * Solve FunCaptchaTask task.
+   * Own proxy is required.
    * You will get response within 10 - 80 secs period depending on service workload.
    */
   public async Solve(
@@ -248,7 +249,8 @@ export class CapMonsterCloudClient {
     cancellationController?: AbortController,
   ): Promise<CaptchaResult<RecaptchaV3Response>>;
   /**
-   * Solve DataDomeRequest task
+   * Solve DataDomeRequest task.
+   * Own proxy is required.
    * You will get response within 10 - 180 secs period depending on service workload.
    */
   public async Solve(
@@ -275,7 +277,8 @@ export class CapMonsterCloudClient {
     cancellationController?: AbortController,
   ): Promise<CaptchaResult<BasiliskResponse>>;
   /**
-   * Solve Imperva task
+   * Solve Imperva task.
+   * Own proxy is required.
    * You will get response within 10 - 180 secs period depending on service workload.
    */
   public async Solve(
@@ -383,7 +386,9 @@ export class CapMonsterCloudClient {
     cancellationController?: AbortController,
   ): Promise<CaptchaResult<AmazonResponse>>;
   /**
-   * Solve Turnstile task
+   * Solve Turnstile task.
+   * Own proxy is required for Cloudflare Challenge (cf_clearance) and Waiting Room.
+   * Those modes return cf_clearance. Turnstile and Challenge token return token.
    * You will get response within 10 - 180 secs period depending on service workload.
    */
   public async Solve(

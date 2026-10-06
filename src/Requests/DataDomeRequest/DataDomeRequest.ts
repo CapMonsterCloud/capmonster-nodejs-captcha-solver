@@ -3,20 +3,18 @@ import { DataDomeRequestBase, DataDomeRequestBaseIn } from './DataDomeRequestBas
 import { ProxyInfo, ProxyInfoIn } from '../ProxyInfo';
 
 export type DataDomeRequestIn = Pick<DataDomeRequestBaseIn, Exclude<keyof DataDomeRequestBaseIn, 'type' | '_class'>> & {
-  proxy?: ProxyInfoIn;
+  proxy: ProxyInfoIn;
 };
 /**
  * DataDome recognition request.
- * {@link https://zenno.link/doc-datadome}
+ * Own proxy is required.
+ * {@link https://docs.capmonster.cloud/docs/captchas/datadome/}
  */
 export class DataDomeRequest extends DataDomeRequestBase {
   public declare class: 'DataDome';
 
   constructor({ proxy, ...argsObj }: DataDomeRequestIn) {
     super({ type: TaskType.CustomTask, _class: 'DataDome', ...argsObj });
-
-    if (proxy) {
-      Object.assign(this, new ProxyInfo(proxy));
-    }
+    Object.assign(this, new ProxyInfo(proxy));
   }
 }

@@ -3,6 +3,7 @@ import { ClientOptions } from './ClientOptions';
 import { ClientURL } from './ClientURL';
 import { CsMap, isNode } from './Utils';
 import { HttpClient } from './HttpClient';
+import { readOwnPackageVersion } from './nodeRequire';
 
 export class CapMonsterCloudClientFactory {
   static httpTimeout = 1000 * 21;
@@ -30,12 +31,7 @@ export class CapMonsterCloudClientFactory {
   }
 
   static CreateUserAgentString() {
-    let productVersion = 'ProductVersion';
-    if (isNode) {
-      // require('./package.json') hide require call from browser bundler, e.g. webpack
-      const packageJSON = module[`require`].call(module, '../package.json');
-      productVersion = packageJSON.version;
-    }
+    const productVersion = isNode ? readOwnPackageVersion() : 'ProductVersion';
 
     return `${CapMonsterCloudClientFactory.productName}/${productVersion}`;
   }

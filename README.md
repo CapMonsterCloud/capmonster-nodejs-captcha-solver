@@ -46,6 +46,19 @@ Install the package from npm:
 npm install @zennolab_com/capmonstercloud-client
 ```
 
+The package published on npm already includes the compiled files and is ready to use after installation.
+
+### Build from this repository
+
+Git does not contain the compiled `dist` output. The examples below import `@zennolab_com/capmonstercloud-client`, and inside this repository that name points at `dist`. After cloning, install dependencies and build before running an example or a test:
+
+```bash
+npm install
+npm run build
+```
+
+Run `npm run build` again after changing the source.
+
 ---
 
 ## 🚀 Quick Start

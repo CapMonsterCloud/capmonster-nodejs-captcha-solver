@@ -800,13 +800,18 @@ describe('Check integration tests for CapMonsterCloudClientFactory()', () => {
         incapsulaScriptUrl: '_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3',
         incapsulaCookies: 'l/LsGnrvyB9lNhXI8borDKa2IGc',
       },
+      proxy: {
+        proxyType: 'http',
+        proxyAddress: '8.8.8.8',
+        proxyPort: 8080,
+      },
     });
 
     const task = await cmcClient.Solve(impervaRequest);
 
     expect(srv.caughtRequests[0]).toHaveProperty(
       'body',
-      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"CustomTask","websiteURL":"https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle","metadata":{"incapsulaScriptUrl":"_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3","incapsulaCookies":"l/LsGnrvyB9lNhXI8borDKa2IGc"},"class":"Imperva"},"softId":54}',
+      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"CustomTask","websiteURL":"https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle","metadata":{"incapsulaScriptUrl":"_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3","incapsulaCookies":"l/LsGnrvyB9lNhXI8borDKa2IGc"},"class":"Imperva","proxyType":"http","proxyAddress":"8.8.8.8","proxyPort":8080},"softId":54}',
     );
     expect(srv.caughtRequests[1]).toHaveProperty('body', '{"clientKey":"<your capmonster.cloud API key>","taskId":1234567}');
     expect(task).toHaveProperty('solution');
