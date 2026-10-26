@@ -24,7 +24,13 @@ function parseArgs(argv) {
 
 function runCommand(command, args) {
   return new Promise((resolve) => {
-    const child = spawn(command, args, { cwd: ROOT, env: process.env, stdio: ['ignore', 'pipe', 'pipe'] });
+    const child = spawn(command, args, {
+      cwd: ROOT,
+      env: process.env,
+      stdio: ['ignore', 'pipe', 'pipe'],
+      // Windows requires a shell to launch npm.cmd. Arguments here are fixed npm script names.
+      shell: process.platform === 'win32',
+    });
     let stdout = '';
     let stderr = '';
     child.stdout.on('data', (chunk) => {
