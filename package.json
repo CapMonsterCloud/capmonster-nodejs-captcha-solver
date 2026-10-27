@@ -1,7 +1,7 @@
 {
   "name": "@zennolab_com/capmonstercloud-client",
-  "version": "2.9.3",
-  "description": "Official JS client library for https://capmonster.cloud/ captcha recognition service",
+  "version": "2.9.4",
+  "description": "Official CapMonster Cloud Node.js and TypeScript SDK: captcha solver & captcha bypass for reCAPTCHA, Cloudflare Turnstile, DataDome and GeeTest. A 2captcha and capsolver alternative.",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -19,15 +19,30 @@
   "files": [
     "dist"
   ],
-  "homepage": "https://github.com/ZennoLab/capmonstercloud-client-js",
+  "homepage": "https://github.com/CapMonsterCloud/capmonster-nodejs-captcha-solver#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZennoLab/capmonstercloud-client-js.git"
+    "url": "git+https://github.com/CapMonsterCloud/capmonster-nodejs-captcha-solver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CapMonsterCloud/capmonster-nodejs-captcha-solver/issues"
   },
   "keywords": [
     "CapMonster",
     "CapMonster Cloud",
-    "ZennoPoster"
+    "captcha",
+    "captcha-solver",
+    "captcha-bypass",
+    "recaptcha",
+    "cloudflare-turnstile",
+    "geetest",
+    "datadome",
+    "web-scraping",
+    "puppeteer",
+    "playwright",
+    "typescript",
+    "2captcha-alternative",
+    "capsolver-alternative"
   ],
   "scripts": {
     "build": "node js-rimraf.js && npx tsc && npx tsc -p tsconfig.esm.json && node js-fix-esm-imports.js && node -e \"require('fs').writeFileSync('dist/esm/package.json', JSON.stringify({ type: 'module' }, null, 2))\"",
@@ -42,8 +57,12 @@
     "test-readme": "node tools/self-verify/run-readme-examples.js",
     "test-modules": "node tools/self-verify/run-module-matrix.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "CapMonster Cloud",
+    "email": "support@capmonster.cloud",
+    "url": "https://capmonster.cloud/en/"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@types/debug": "^4.1.7",
     "@types/jest": "^29.0.0",
