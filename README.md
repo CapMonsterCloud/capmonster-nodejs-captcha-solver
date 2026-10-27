@@ -1,10 +1,10 @@
-# CapMonster Cloud Node.js SDK: TypeScript CAPTCHA Solver, Captcha Bypass & Anti-Bot API Client
+# CapMonster Cloud Node.js SDK: TypeScript Captcha Solver & Captcha Bypass for reCAPTCHA, Cloudflare Turnstile and GeeTest
 
 > **🔄 Migrating from 2Captcha or Capsolver?** CapMonster Cloud is a fast, cost-effective **2captcha alternative** and **capsolver alternative** for Node.js and TypeScript: reCAPTCHA v3 from **$0.90 per 1,000 solves**, which is **up to 38% cheaper than 2Captcha** and **10% cheaper than Capsolver**, with an API response time of **≤ 2 s**. Already have software built for 2Captcha? CapMonster Cloud [supports the 2Captcha API format](https://docs.capmonster.cloud/docs/external-services/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme). Moving your Node.js code takes just a few lines: see the **Migration examples** below. Full comparison and disclaimer are in the comparison section below.
 
 <p align="center">
   <a href="https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme">
-    <img src="https://img.shields.io/badge/CapMonster%20Cloud-Node.js%20Captcha%20Solver-00B2FF?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="CapMonster Cloud Node.js SDK" height="40">
+    <img src="https://img.shields.io/badge/CapMonster%20Cloud-Node.js%20Captcha%20Solver-00B2FF?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="CapMonster Cloud Node.js SDK - captcha solver and captcha bypass API client" height="40">
   </a>
 </p>
 
@@ -32,13 +32,16 @@ Use the SDK for captcha bypass with supported CAPTCHA and anti-bot task types, i
 
 ## ⚡ Highlights
 
+- ⚡ **Fast solving:** AI-based recognition, on average between 1 and 30 seconds depending on the captcha type.
+- 🤖 **Zero human workers:** 100% automated machine learning pipeline with no manual latencies.
+- 🛡️ **Modern anti-bot bypass:** Full support for Cloudflare Turnstile, reCAPTCHA Enterprise, GeeTest, DataDome, Amazon WAF and Imperva.
 - ⚡ **Node.js & TypeScript:** Typed request models for supported task types.
-- 🧩 **Modern CAPTCHA coverage:** Work with reCAPTCHA, Turnstile, GeeTest, Amazon WAF, DataDome, Imperva, and more.
 - 🌐 **Automation-ready:** Use with Playwright, Puppeteer, Cypress, scraping tools, and custom HTTP clients.
 - 🛠️ **Dedicated or custom payloads:** Use request classes or `CommonCaptcha` to submit a full task payload.
-- 📖 **Official docs:** Current task parameters and API methods are maintained in CapMonster Cloud documentation.
+- 💰 **Cost-effective:** Low-cost pricing structure based on pay-as-you-go balance.
 - 📉 **Cheaper than alternatives:** reCAPTCHA v3 from $0.90 per 1,000 solves, versus $1.45 at 2Captcha and $1.00 at Capsolver.
 - 🔄 **Easy migration:** replace your 2Captcha or Capsolver solver call and keep the rest of your scraper or bot unchanged.
+- 📖 **Official docs:** request types follow the [CapMonster Cloud API documentation](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
 
 ---
 
@@ -81,7 +84,7 @@ Install the package from npm:
 npm install @zennolab_com/capmonstercloud-client
 ```
 
-The package published on npm already includes the compiled files and is ready to use after installation.
+The package published on npm already includes the compiled files and is ready to use after installation. Requires Node.js 18 or newer.
 
 ### Build from this repository
 
@@ -98,8 +101,6 @@ Run `npm run build` again after changing the source.
 
 ## 🚀 Quick Start: Solve and Bypass Captchas in Node.js
 
-Create an API key in the [CapMonster Cloud Dashboard](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme), install the package, then use one of the examples below.
-
 ### 1. Solve reCAPTCHA v2 (TypeScript)
 
 ```ts
@@ -115,7 +116,7 @@ const client = CapMonsterCloudClientFactory.Create(
 
 const result = await client.Solve(
   new RecaptchaV2Request({
-    websiteURL: '[https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high](https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high)',
+    websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
     websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
   }),
 );
@@ -138,7 +139,7 @@ const client = CapMonsterCloudClientFactory.Create(
 
 const result = await client.Solve(
   new TurnstileRequest({
-    websiteURL: '[https://tsinvisble.zlsupport.com](https://tsinvisble.zlsupport.com)',
+    websiteURL: 'https://tsinvisble.zlsupport.com',
     websiteKey: '0x4AAAAAAABUY0VLtOUMAHxE',
   }),
 );
@@ -163,7 +164,7 @@ async function run() {
   console.log('Balance:', await client.getBalance());
 
   const task = new RecaptchaV2Request({
-    websiteURL: '[https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high](https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high)',
+    websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
     websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
   });
 
@@ -193,7 +194,7 @@ async function run() {
   const task = new CommonCaptcha({
     task: {
       type: 'RecaptchaV2Task',
-      websiteURL: '[https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high](https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high)',
+      websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=high',
       websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
     },
   });
@@ -210,7 +211,7 @@ run().catch(console.error);
 
 Already use 2Captcha or Capsolver in your Node.js scraper or bot? Replace only the solver call and keep the rest of your code unchanged. CapMonster Cloud follows the same flow: send the website URL and sitekey, receive the token.
 
-### Migration from 2Captcha (@2captcha/captcha-solver)
+### Before: 2Captcha (@2captcha/captcha-solver)
 
 ```javascript
 // Before: 2Captcha
@@ -218,11 +219,15 @@ const TwoCaptcha = require('@2captcha/captcha-solver');
 const solver = new TwoCaptcha.Solver('YOUR_2CAPTCHA_API_KEY');
 
 const res = await solver.recaptcha({
-  pageurl: '[https://target-website.com/page-with-recaptcha](https://target-website.com/page-with-recaptcha)',
+  pageurl: 'https://target-website.com/page-with-recaptcha',
   googlekey: 'YOUR_SITE_KEY',
 });
 const token = res.data;
 ```
+
+### Migrating from Capsolver
+
+CapMonster Cloud uses the same `createTask` / `getTaskResult` flow, so if you call the Capsolver HTTP API directly from Node.js, you can switch to the CapMonster Cloud Node.js SDK or follow the [API Methods Reference](https://docs.capmonster.cloud/docs/methods/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
 
 ### After: CapMonster Cloud
 
@@ -240,7 +245,7 @@ const client = CapMonsterCloudClientFactory.Create(
 
 const result = await client.Solve(
   new RecaptchaV2Request({
-    websiteURL: '[https://target-website.com/page-with-recaptcha](https://target-website.com/page-with-recaptcha)',
+    websiteURL: 'https://target-website.com/page-with-recaptcha',
     websiteKey: 'YOUR_SITE_KEY',
   }),
 );
@@ -250,21 +255,17 @@ const token = result.solution?.gRecaptchaResponse;
 
 Only the client, the API key and the request class change: the token is used exactly as before, so the rest of your scraper stays the same.
 
-### Migrating from Capsolver
-
-CapMonster Cloud uses the same `createTask` / `getTaskResult` flow, so if you call the Capsolver HTTP API directly from Node.js, you can switch to the CapMonster Cloud SDK above or follow the [API Methods Reference](https://docs.capmonster.cloud/docs/methods/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
-
 ### Keep existing 2Captcha-based software
 
 Software that already speaks the 2Captcha API can work with CapMonster Cloud without code changes. See the [guide for connecting other services' APIs](https://docs.capmonster.cloud/docs/external-services/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
 
 ---
 
-## 🛡️ Supported Task Families: Bypass reCAPTCHA, Cloudflare Turnstile, DataDome, GeeTest & More
+## 🛡️ Supported CAPTCHA Types: Bypass reCAPTCHA, Cloudflare Turnstile, GeeTest and More
 
 Use this Node.js captcha solver for captcha bypass in web scraping and automation: reCAPTCHA bypass (v2, v2 Enterprise, v3), Cloudflare Turnstile solver, DataDome solver, GeeTest solver, Amazon WAF bypass, Imperva and image-to-text recognition.
 
-Refer to the official [Supported CAPTCHA Types](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme) for current task parameters, response formats, and examples.
+All task types follow the official [CapMonster Cloud API documentation](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme):
 
 | Task family | Example request classes in this SDK |
 | :--- | :--- |
@@ -275,6 +276,44 @@ Refer to the official [Supported CAPTCHA Types](https://docs.capmonster.cloud/do
 | **Image-to-Text** | `ImageToTextRequest` |
 | **Complex image tasks** | `ComplexImageRecaptchaRequest`, `ComplexImageTaskRecognitionRequest` |
 | **Custom anti-bot tasks** | `DataDomeRequest`, `ImpervaRequest`, `TenDIRequest`, `ProsopoRequest`, `BasiliskRequest` |
+
+---
+
+## 🛠️ How It Works
+
+```text
+[ Node.js Script / Browser Automation ]
+         │
+         ▼
+[ Extract sitekey & website URL ]
+         │
+         ▼
+[ CapMonster Cloud Node.js SDK ] ──► createTask API request
+         │
+         ▼
+[ Neural Network Processing ] ──► Poll getTaskResult until the task is ready
+         │
+         ▼
+[ Receive Token & Autosubmit ] ──► Complete bypass
+```
+
+---
+
+## ⚙️ Best Practices
+
+- **Use tokens promptly:** CAPTCHA tokens expire quickly (a reCAPTCHA v2 token is valid for 60 seconds after solving), so submit or inject the solution immediately after receiving the response.
+- **Keep session context consistent:** When a task uses a proxy, use the same proxy in your scraping or browser session and in the CapMonster task.
+- **Use the right task type:** Choose the request type that matches the target protection and follow the required parameters in the [documentation](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
+- **Monitor your balance:** Keep your account balance positive in the [Dashboard](https://dash.capmonster.cloud/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme) and handle API errors in your code.
+
+---
+
+## 💡 Use Cases
+
+- **Web scraping and data collection** from websites you are authorized to access, without manual captcha solving.
+- **Browser automation:** get the solution token in Node.js and inject it into the page with your automation tool.
+- **Automated testing (QA)** of your own website and its captcha-protected forms.
+- **Backend services** that need a captcha solving API inside a Node.js application.
 
 ---
 
@@ -296,66 +335,62 @@ DEBUG=cmc-* node app.js
 
 ---
 
-## 🛠️ How It Works
-
-```text
-[ Node.js Script / Browser Automation ]
-                    │
-                    ▼
-      [ Create task request with target data ]
-                    │
-                    ▼
-[ CapMonster Cloud Node.js SDK ] ──► createTask API request
-                    │
-                    ▼
-       [ SDK waits for the task result ]
-                    │
-                    ▼
-[ Receive token / solution ] ──► Use it in your workflow
-```
-
----
-
-## ⚙️ Best Practices
-
-- **Use the right task model:** Choose a request type that matches the target protection; validate all required fields against the official documentation.
-- **Keep session context consistent:** For tasks that use a proxy, align the proxy settings with the associated browser or scraping session.
-- **Use tokens promptly:** CAPTCHA tokens can expire, so submit or inject the returned solution immediately.
-- **Monitor balance and API responses:** See the API methods reference for `createTask`, `getTaskResult`, and `getBalance`.
-
----
-
 ## ❓ FAQ
 
 **Is CapMonster Cloud a 2Captcha alternative for Node.js?**
-Yes. It is a captcha solving service with an official Node.js and TypeScript SDK. For reCAPTCHA v3 it starts at $0.90 per 1,000 solves versus $1.45 at 2Captcha, which is up to 38% cheaper. For Cloudflare Turnstile it starts at $1.30 versus $1.45, which is 10% cheaper.
+Yes. It is a captcha solving service with an official Node.js SDK. For reCAPTCHA v3 it starts at $0.90 per 1,000 solves versus $1.45 at 2Captcha, which is up to 38% cheaper. For Cloudflare Turnstile it starts at $1.30 versus $1.45, which is 10% cheaper.
 
 **Is CapMonster Cloud a Capsolver alternative for Node.js?**
 Yes. For reCAPTCHA v3 it is 10% cheaper than Capsolver ($0.90 versus $1.00 per 1,000 solves) and shows an API response time of ≤ 2 s versus < 3 s. See the comparison table above and its disclaimer.
 
-**How do I migrate from @2captcha/captcha-solver to CapMonster Cloud?**
+**How do I migrate from 2Captcha or Capsolver to CapMonster Cloud in Node.js?**
 Create a client with `CapMonsterCloudClientFactory.Create`, build the matching request class and call `client.Solve()`. See the migration examples above. Software that already supports the 2Captcha API can also be connected through the [CapMonster Cloud guide](https://docs.capmonster.cloud/docs/external-services/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
+
+**Is there an official Node.js captcha solver from CapMonster Cloud?**
+Yes. This repository is the official Node.js client library for the CapMonster Cloud captcha solving service.
 
 **How do I bypass reCAPTCHA v2 in Node.js?**
 Create a client with your API key, pass a `RecaptchaV2Request` with the page URL and sitekey to `client.Solve()` and use `result.solution.gRecaptchaResponse` on the page. See the [reCAPTCHA v2 documentation](https://docs.capmonster.cloud/docs/captchas/no-captcha-task/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
 
 **How do I bypass Cloudflare Turnstile in Node.js?**
-Use `TurnstileRequest` with the page URL and sitekey. According to the [Turnstile documentation](https://docs.capmonster.cloud/docs/captchas/turnstile-task/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme), all Turnstile subtypes are supported automatically: manual, non-interactive and invisible.
+Use `TurnstileRequest` with the page URL and sitekey, as in example 2 above. According to the [Turnstile documentation](https://docs.capmonster.cloud/docs/captchas/turnstile-task/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme), all Turnstile subtypes are supported automatically: manual, non-interactive and invisible.
+
+**Which captcha types does the Node.js SDK solve?**
+reCAPTCHA v2, v3 and Enterprise, Cloudflare Turnstile, GeeTest, Amazon WAF, DataDome, Imperva, image-to-text and complex image tasks, and other custom anti-bot task types. See the supported types table above and the [Supported Captchas Overview](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
 
 **How do I get an API key?**
 Register on CapMonster Cloud, top up your balance and copy your API key. The [Getting Started Guide](https://docs.capmonster.cloud/docs/getting-start/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme) describes each step.
+
+**Which Node.js version is required?**
+Node.js 18 or newer (see `engines` in `package.json`).
+
+**How fast are captchas solved?**
+On average between 1 and 30 seconds, depending on the captcha type. More details are in the [CapMonster Cloud FAQ](https://docs.capmonster.cloud/docs/faq/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
+
+**How long is a reCAPTCHA v2 solution valid?**
+According to the [reCAPTCHA v2 documentation](https://docs.capmonster.cloud/docs/captchas/no-captcha-task/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme), the returned token is valid for 60 seconds after the captcha is solved, so use it right away.
+
+**Where is the full API reference?**
+See the [API Methods Reference](https://docs.capmonster.cloud/docs/methods/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
+
+---
+
+## ⚖️ Responsible Use
+
+CapMonster Cloud is intended for legitimate business purposes only, such as testing your own website or a website you are authorized to test, and recognizing images you provide. Read more about [ethical and transparent captcha automation](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme).
 
 ---
 
 ## 📚 Documentation & Support
 
-- 📖 [Getting Started](https://docs.capmonster.cloud/docs/getting-start/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
-- 🧩 [Supported CAPTCHA Types](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
-- ⚙️ [API Methods: createTask, getTaskResult, getBalance](https://docs.capmonster.cloud/docs/methods/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 📖 [Getting Started Guide](https://docs.capmonster.cloud/docs/getting-start/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 🎯 [Supported Captchas Overview](https://docs.capmonster.cloud/docs/captchas/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- ⚙️ [API Methods Reference](https://docs.capmonster.cloud/docs/methods/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- ❓ [CapMonster Cloud FAQ](https://docs.capmonster.cloud/docs/faq/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
 - 🌐 [Browser Extension Guides](https://docs.capmonster.cloud/docs/extension/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
-- 💬 [CapMonster Cloud](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme)
+- 💬 [Support & Community](https://capmonster.cloud/en/?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme#support)
 
-## Other official SDKs
+## Other official SDKs & integrations
 
 - [Python](https://github.com/CapMonsterCloud/capmonster-python-captcha-solver)
 - [.NET](https://github.com/CapMonsterCloud/capmonster-dotnet-captcha-solver)
@@ -364,6 +399,7 @@ Register on CapMonster Cloud, top up your balance and copy your API key. The [Ge
 - [Rust](https://github.com/CapMonsterCloud/capmonster-rust-captcha-solver)
 - [n8n](https://github.com/CapMonsterCloud/capmonster-n8n-captcha-solver)
 - [MCP server](https://github.com/CapMonsterCloud/capmonster-mcp-captcha-solver)
+- [MCP server for Patchright](https://github.com/CapMonsterCloud/capmonster-mcp-patchright-captcha-solver)
 - [API Docs](https://github.com/CapMonsterCloud/capmonster-captcha-solver-docs)
 
 ---
