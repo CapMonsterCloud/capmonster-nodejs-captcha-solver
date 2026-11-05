@@ -9,6 +9,7 @@ export type RecaptchaV2EnterpriseRequestBaseIn = {
   pageAction?: string;
   apiDomain?: string;
   cookies?: string;
+  minScore?: number;
 } & CaptchaRequestBaseIn;
 
 /**
@@ -71,6 +72,11 @@ export abstract class RecaptchaV2EnterpriseRequestBase extends CaptchaRequestBas
    */
   public cookies?: string;
 
+  /**
+   * Can have a value from 0.1 to 0.9.
+   */
+  public minScore?: number;
+
   constructor({
     type,
     nocache,
@@ -82,6 +88,7 @@ export abstract class RecaptchaV2EnterpriseRequestBase extends CaptchaRequestBas
     pageAction,
     apiDomain,
     cookies,
+    minScore,
   }: RecaptchaV2EnterpriseRequestBaseIn) {
     super({ type, nocache });
     this.websiteURL = this.validateWebsiteURL(websiteURL);
@@ -92,5 +99,6 @@ export abstract class RecaptchaV2EnterpriseRequestBase extends CaptchaRequestBas
     this.pageAction = pageAction;
     this.apiDomain = apiDomain;
     this.cookies = cookies;
+    this.minScore = minScore;
   }
 }

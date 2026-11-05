@@ -1,6 +1,6 @@
 {
   "name": "@zennolab_com/capmonstercloud-client",
-  "version": "2.9.4",
+  "version": "2.9.5",
   "description": "Official CapMonster Cloud Node.js and TypeScript SDK: captcha solver & captcha bypass for reCAPTCHA, Cloudflare Turnstile, DataDome and GeeTest. A 2captcha and capsolver alternative.",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",

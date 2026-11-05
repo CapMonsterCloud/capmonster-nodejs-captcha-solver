@@ -496,6 +496,27 @@ describe('Check unit tests for SerializeObject()', () => {
     });
   });
 
+  it(`should serialize RecaptchaV2EnterpriseRequest with minScore`, () => {
+    const serialized = SerializeObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: new RecaptchaV2EnterpriseRequest({
+        websiteURL: 'https://mydomain.com/page-with-recaptcha-enterprise',
+        websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+        minScore: 0.7,
+      }),
+    });
+
+    expect(serialized).toMatchObject({
+      clientKey: '<your capmonster.cloud API key>',
+      task: {
+        type: 'RecaptchaV2EnterpriseTask',
+        websiteURL: 'https://mydomain.com/page-with-recaptcha-enterprise',
+        websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
+        minScore: 0.7,
+      },
+    });
+  });
+
   it(`should serialize RecaptchaV3EnterpriseProxylessRequest`, () => {
     const serialized = SerializeObject({
       clientKey: '<your capmonster.cloud API key>',
