@@ -207,6 +207,30 @@ run().catch(console.error);
 
 ---
 
+## 🔧 Client Configuration
+
+`ClientOptions` controls how the client connects to the CapMonster Cloud API:
+
+| Option | Default | Description |
+| :--- | :--- | :--- |
+| `clientKey` | — | **Required.** Your CapMonster Cloud API key from the [Dashboard](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme). |
+| `serviceUrl` | `https://api.capmonster.cloud` | CapMonster Cloud API endpoint (`URL` or string). |
+| `softId` | `54` | `softId` sent with every created task; identifies your software in the Dashboard. |
+
+```typescript
+import { CapMonsterCloudClientFactory, ClientOptions } from '@zennolab_com/capmonstercloud-client';
+
+const client = CapMonsterCloudClientFactory.Create(
+  new ClientOptions({
+    clientKey: 'YOUR_API_KEY',
+    serviceUrl: 'https://api.capmonster.cloud',
+    softId: 12345,
+  }),
+);
+```
+
+---
+
 ## 🔄 Migrating from 2Captcha or Capsolver
 
 Already use 2Captcha or Capsolver in your Node.js scraper or bot? Replace only the solver call and keep the rest of your code unchanged. CapMonster Cloud follows the same flow: send the website URL and sitekey, receive the token.
