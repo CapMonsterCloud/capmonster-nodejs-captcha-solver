@@ -325,6 +325,47 @@ All task types follow the official [CapMonster Cloud API documentation](https://
 
 ---
 
+## 🐞 Error Handling
+
+`Solve` does not throw on task errors: it returns a `CaptchaResult` where one of the two properties is set — `solution` (the solution object on success) or `error` (`ErrorType` on failure).
+
+| `ErrorType` | Meaning |
+| :--- | :--- |
+| `Timeout` | No solution within the maximum waiting time (or the provided `AbortController` was aborted). |
+| `KEY_DOES_NOT_EXIST`, `ZERO_BALANCE`, `IP_BANNED`, `CAPTCHA_UNSOLVABLE`, `TOO_MUCH_REQUESTS`, and similar | API error codes, mapped from the API `errorCode` strings. |
+| `Unknown` | An unrecognized API error. |
+
+Transport and balance failures throw:
+
+| Exception | Raised when |
+| :--- | :--- |
+| `GetBalanceError` | `getBalance()` failed; carries `errorType: ErrorType`. |
+| `CapmonsterCloudClientError` | The API answered with an error status or an unparsable response. |
+
+```typescript
+const result = await client.Solve(task);
+
+if (result.error) {
+  console.log('Solve failed:', result.error);
+} else {
+  console.log('Token:', result.solution?.gRecaptchaResponse);
+}
+```
+
+**Polling and timeouts.** The client polls `getTaskResult` automatically with per-captcha-type settings (`firstRequestDelay`, optional `firstRequestNoCacheDelay`, `requestsInterval`, `timeout` — 1 s / 3 s / 180 s for token tasks). Pass your own `GetResultTimeouts` object as the second argument of `Solve` to override them:
+
+```typescript
+const result = await client.Solve(task, {
+  firstRequestDelay: 1000,
+  requestsInterval: 3000,
+  timeout: 240_000,
+});
+```
+
+Unsolved tasks are not charged.
+
+---
+
 ## ⚙️ Best Practices
 
 - **Use tokens promptly:** CAPTCHA tokens expire quickly (a reCAPTCHA v2 token is valid for 60 seconds after solving), so submit or inject the solution immediately after receiving the response.
