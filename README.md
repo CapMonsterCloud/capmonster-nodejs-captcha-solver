@@ -269,13 +269,15 @@ All task types follow the official [CapMonster Cloud API documentation](https://
 
 | Task family | Example request classes in this SDK |
 | :--- | :--- |
-| **reCAPTCHA** | `RecaptchaV2Request`, `RecaptchaV2EnterpriseRequest`, `RecaptchaV3ProxylessRequest` |
+| **reCAPTCHA** | `RecaptchaV2Request`, `RecaptchaV2EnterpriseRequest` (optional `minScore`, 0.1–0.9), `RecaptchaV3ProxylessRequest`, `RecaptchaV3EnterpriseRequest` |
 | **Cloudflare Turnstile** | `TurnstileRequest` |
 | **GeeTest** | `GeeTestRequest` |
-| **Amazon WAF** | `AmazonRequest`, `AmazonProxylessRequest` |
+| **FunCaptcha** | `FunCaptchaRequest` |
+| **Amazon WAF** | `AmazonRequest` |
+| **Binance CAPTCHA** | `BinanceRequest` |
 | **Image-to-Text** | `ImageToTextRequest` |
-| **Complex image tasks** | `ComplexImageRecaptchaRequest`, `ComplexImageTaskRecognitionRequest` |
-| **Custom anti-bot tasks** | `DataDomeRequest`, `ImpervaRequest`, `TenDIRequest`, `ProsopoRequest`, `BasiliskRequest` |
+| **Complex image tasks** | `ComplexImageRecaptchaRequest`, `ComplexImageTaskRecognitionRequest`, `ComplexImageFunCaptchaRequest` |
+| **Custom anti-bot tasks** | `DataDomeRequest`, `ImpervaRequest`, `TSPDRequest`, `TenDIRequest`, `ProsopoRequest`, `BasiliskRequest`, `AltchaRequest`, `AlibabaRequest`, `FriendlyRequest`, `HuntRequest`, `MTCaptchaRequest`, `YidunRequest` |
 
 ---
 
