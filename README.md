@@ -327,7 +327,7 @@ All task types follow the official [CapMonster Cloud API documentation](https://
 
 ## 🐞 Error Handling
 
-`Solve` does not throw on task errors: it returns a `CaptchaResult` where one of the two properties is set — `solution` (the solution object on success) or `error` (`ErrorType` on failure).
+`Solve` does not throw on task errors: it returns a `CaptchaResult` where one of the two properties is set — `solution` (the solution object on success) or `error` (`ErrorType` on failure). On success the result also carries `cost` — the price of this solution in USD.
 
 | `ErrorType` | Meaning |
 | :--- | :--- |
@@ -349,6 +349,7 @@ if (result.error) {
   console.log('Solve failed:', result.error);
 } else {
   console.log('Token:', result.solution?.gRecaptchaResponse);
+  console.log('Cost:', result.cost); // price of this solution in USD
 }
 ```
 
