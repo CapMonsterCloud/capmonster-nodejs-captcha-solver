@@ -1,7 +1,6 @@
 import { ErrorType } from './ErrorType';
 import { FunCaptchaResponse } from './Responses/FunCaptchaResponse';
 import { GeeTestResponse } from './Responses/GeeTestResponse';
-import { HCaptchaResponse } from './Responses/HCaptchaResponse';
 import { ImageToTextResponse } from './Responses/ImageToTextResponse';
 import { RecaptchaV2EnterpriseResponse } from './Responses/RecaptchaV2EnterpriseResponse';
 import { RecaptchaV2Response } from './Responses/RecaptchaV2Response';
@@ -15,7 +14,6 @@ import { ImpervaResponse } from './Responses/ImpervaResponse';
 import { BinanceResponse } from './Responses/BinanceResponse';
 import { ComplexImageRecognitionResponse } from './Responses/ComplexImageRecognitionResponse';
 import { AltchaResponse } from './Responses/AltchaResponse';
-import { CastleResponse } from './Responses/CastleResponse';
 import { TSPDResponse } from './Responses/TSPDResponse';
 import { HuntResponse } from './Responses/HuntResponse';
 import { AlibabaResponse } from './Responses/AlibabaResponse';
@@ -40,7 +38,6 @@ export type TaskFailed = {
 export type TaskCompletedSolution =
   | FunCaptchaResponse
   | GeeTestResponse
-  | HCaptchaResponse
   | ImageToTextResponse
   | RecaptchaV2EnterpriseResponse
   | RecaptchaV2Response
@@ -54,7 +51,6 @@ export type TaskCompletedSolution =
   | BinanceResponse
   | ComplexImageRecognitionResponse
   | AltchaResponse
-  | CastleResponse
   | TSPDResponse
   | HuntResponse
   | AlibabaResponse

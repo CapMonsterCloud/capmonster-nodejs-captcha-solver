@@ -2,7 +2,6 @@ import { ClientOptions } from './ClientOptions';
 import { CapMonsterCloudClientFactory } from './CapMonsterCloudClientFactory';
 import { FunCaptchaRequest, FunCaptchaRequestIn } from './Requests/FunCaptchaRequest';
 import { GeeTestRequest, GeeTestRequestIn } from './Requests/GeeTestRequest';
-import { HCaptchaRequest, HCaptchaRequestIn } from './Requests/HCaptchaRequest';
 import { ImageToTextRequest, ImageToTextRequestIn } from './Requests/ImageToTextRequest';
 import { RecaptchaV2EnterpriseRequest, RecaptchaV2EnterpriseRequestIn } from './Requests/RecaptchaV2EnterpriseRequest';
 import { RecaptchaV2Request, RecaptchaV2RequestIn } from './Requests/RecaptchaV2Request';
@@ -14,7 +13,6 @@ import { ErrorType } from './ErrorType';
 import { ProxyType } from './Requests/ProxyType';
 import { TaskType } from './TaskType';
 import { ComplexImageRecaptchaRequest, ComplexImageRecaptchaRequestIn } from './Requests/ComplexImageRecaptchaRequest';
-import { ComplexImageHCaptchaRequest, ComplexImageHCaptchaRequestIn } from './Requests/ComplexImageHCaptchaRequest';
 import { ComplexImageFunCaptchaRequest, ComplexImageFunCaptchaRequestIn } from './Requests/ComplexImageFunCaptchaRequest';
 import { DataDomeRequest, DataDomeRequestIn } from './Requests/DataDomeRequest';
 import { TenDIRequest, TenDIRequestIn } from './Requests/TenDIRequest';
@@ -24,10 +22,8 @@ import { ImpervaRequest, ImpervaRequestIn, ImpervaMetadata } from './Requests/Im
 import { BinanceRequest, BinanceRequestIn } from './Requests/BinanceRequest';
 import { ComplexImageRecognitionRequestIn, ComplexImageTaskRecognitionRequest } from './Requests/ComplexImageTaskRecognitionRequest';
 import { ProsopoRequest, ProsopoRequestIn } from './Requests/ProsopoRequest';
-import { TemuRequest, TemuRequestIn } from './Requests/TemuRequest';
 import { YidunRequest, YidunRequestIn } from './Requests/YidunRequest';
 import { MTCaptchaRequest, MTCaptchaRequestIn } from './Requests/MTCaptchaRequest';
-import { CastleRequest, CastleRequestIn } from './Requests/CastleRequest';
 import { TSPDRequest, TSPDRequestIn } from './Requests/TSPDRequest';
 import { HuntRequest, HuntRequestIn } from './Requests/HuntRequest';
 import { AltchaRequest, AltchaRequestIn } from './Requests/AltchaRequest';
@@ -40,14 +36,12 @@ export default {
   ClientOptions,
   FunCaptchaRequest,
   GeeTestRequest,
-  HCaptchaRequest,
   ImageToTextRequest,
   RecaptchaV2EnterpriseRequest,
   RecaptchaV2Request,
   RecaptchaV3ProxylessRequest,
   TurnstileRequest,
   ComplexImageRecaptchaRequest,
-  ComplexImageHCaptchaRequest,
   ComplexImageFunCaptchaRequest,
   DataDomeRequest,
   TenDIRequest,
@@ -57,10 +51,8 @@ export default {
   BinanceRequest,
   ComplexImageTaskRecognitionRequest,
   ProsopoRequest,
-  TemuRequest,
   YidunRequest,
   MTCaptchaRequest,
-  CastleRequest,
   TSPDRequest,
   HuntRequest,
   AltchaRequest,
@@ -82,8 +74,6 @@ export {
   FunCaptchaRequestIn,
   GeeTestRequest,
   GeeTestRequestIn,
-  HCaptchaRequest,
-  HCaptchaRequestIn,
   ImageToTextRequest,
   ImageToTextRequestIn,
   RecaptchaV2EnterpriseRequest,
@@ -96,8 +86,6 @@ export {
   TurnstileRequestIn,
   ComplexImageRecaptchaRequest,
   ComplexImageRecaptchaRequestIn,
-  ComplexImageHCaptchaRequest,
-  ComplexImageHCaptchaRequestIn,
   ComplexImageFunCaptchaRequest,
   ComplexImageFunCaptchaRequestIn,
   DataDomeRequest,
@@ -117,14 +105,10 @@ export {
   ComplexImageRecognitionRequestIn,
   ProsopoRequest,
   ProsopoRequestIn,
-  TemuRequest,
-  TemuRequestIn,
   YidunRequest,
   YidunRequestIn,
   MTCaptchaRequest,
   MTCaptchaRequestIn,
-  CastleRequest,
-  CastleRequestIn,
   TSPDRequest,
   TSPDRequestIn,
   HuntRequest,

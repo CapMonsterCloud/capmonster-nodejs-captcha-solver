@@ -5,7 +5,6 @@ import { ClientOptions } from './ClientOptions';
 import { ErrorType } from './ErrorType';
 import { RecaptchaV2Request } from './Requests/RecaptchaV2Request';
 import { ComplexImageRecaptchaRequest } from './Requests/ComplexImageRecaptchaRequest';
-import { ComplexImageHCaptchaRequest } from './Requests/ComplexImageHCaptchaRequest';
 import { ComplexImageFunCaptchaRequest } from './Requests/ComplexImageFunCaptchaRequest';
 import { TenDIRequest } from './Requests/TenDIRequest';
 
@@ -14,12 +13,9 @@ import { ImpervaRequest } from './Requests/ImpervaRequest';
 import { BinanceRequest } from './Requests/BinanceRequest';
 import { ComplexImageTaskRecognitionRequest } from './Requests/ComplexImageTaskRecognitionRequest';
 import { AmazonRequest } from './Requests/AmazonRequest';
-import { HCaptchaRequest } from './Requests/HCaptchaRequest';
 import { ProsopoRequest } from './Requests/ProsopoRequest';
-import { TemuRequest } from './Requests/TemuRequest';
 import { YidunRequest } from './Requests/YidunRequest';
 import { MTCaptchaRequest } from './Requests/MTCaptchaRequest';
-import { CastleRequest } from './Requests/CastleRequest';
 import { TSPDRequest } from './Requests/TSPDRequest';
 import { HuntRequest } from './Requests/HuntRequest';
 import { AlibabaRequest } from './Requests/AlibabaRequest';
@@ -93,43 +89,6 @@ describe('Check integration tests for CapMonsterCloudClientFactory()', () => {
     expect(await srv.destroy()).toBeUndefined();
   });
 
-  it('should call createTask and getTaskResult methods with specified objects for HCaptcha', async () => {
-    expect.assertions(7);
-
-    const srv = await createServerMock({
-      responses: [
-        { responseBody: '{"errorId":0,"taskId":7654321}' },
-        {
-          responseBody:
-            '{"errorId":0,"status":"ready","solution":{"gRecaptchaResponse":"answer", "userAgent": "userAgent", "respKey": "respKey"}}',
-        },
-      ],
-    });
-
-    const cmcClient = CapMonsterCloudClientFactory.Create(
-      new ClientOptions({ clientKey: '<your capmonster.cloud API key>', serviceUrl: `http://localhost:${srv.address.port}` }),
-    );
-
-    const HRecaptachRequest = new HCaptchaRequest({
-      websiteURL: 'https://lessons.zennolab.com/captchas/hcaptcha/?level=easy',
-      websiteKey: '6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd',
-      fallbackToActualUA: true,
-    });
-
-    const task = await cmcClient.Solve(HRecaptachRequest);
-
-    expect(srv.caughtRequests[0]).toHaveProperty(
-      'body',
-      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"HCaptchaTask","websiteURL":"https://lessons.zennolab.com/captchas/hcaptcha/?level=easy","websiteKey":"6Lcg7CMUAAAAANphynKgn9YAgA4tQ2KI_iqRyTwd","fallbackToActualUA":true},"softId":54}',
-    );
-    expect(srv.caughtRequests[1]).toHaveProperty('body', '{"clientKey":"<your capmonster.cloud API key>","taskId":7654321}');
-    expect(task).toHaveProperty('solution');
-    expect(task).toHaveProperty('solution.gRecaptchaResponse', 'answer');
-    expect(task).toHaveProperty('solution.userAgent', 'userAgent');
-    expect(task).toHaveProperty('solution.respKey', 'respKey');
-
-    expect(await srv.destroy()).toBeUndefined();
-  });
 
   it('should call createTask and getTaskResult methods with specified objects for CommonCaptchaRequest', async () => {
     expect.assertions(5);
@@ -512,40 +471,6 @@ describe('Check integration tests for CapMonsterCloudClientFactory()', () => {
     expect(await srv.destroy()).toBeUndefined();
   });
 
-  it('should solve Complex Image HCaptcha Task', async () => {
-    expect.assertions(5);
-
-    const srv = await createServerMock({
-      responses: [
-        { responseBody: '{"errorId":0,"taskId":1234567}' },
-        { responseBody: '{"errorId":0,"status":"ready","solution":{"answer":[true, false]}}' },
-      ],
-    });
-
-    const cmcClient = CapMonsterCloudClientFactory.Create(
-      new ClientOptions({ clientKey: '<your capmonster.cloud API key>', serviceUrl: `http://localhost:${srv.address.port}` }),
-    );
-
-    const complexImageHCaptchaRequest = new ComplexImageHCaptchaRequest({
-      imageUrls: ['https://i.postimg.cc/yYjg75Kv/payloadtraffic.jpg'],
-      metaData: {
-        Task: 'Please click each image containing a mountain',
-      },
-      websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle',
-    });
-
-    const task = await cmcClient.Solve(complexImageHCaptchaRequest);
-
-    expect(srv.caughtRequests[0]).toHaveProperty(
-      'body',
-      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"ComplexImageTask","class":"hcaptcha","imageUrls":["https://i.postimg.cc/yYjg75Kv/payloadtraffic.jpg"],"metadata":{"Task":"Please click each image containing a mountain"},"websiteURL":"https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle"},"softId":54}',
-    );
-    expect(srv.caughtRequests[1]).toHaveProperty('body', '{"clientKey":"<your capmonster.cloud API key>","taskId":1234567}');
-    expect(task).toHaveProperty('solution');
-    expect(task).toHaveProperty('solution.answer', [true, false]);
-
-    expect(await srv.destroy()).toBeUndefined();
-  });
 
   it('should solve Complex Image FunCaptcha Task', async () => {
     expect.assertions(5);
@@ -1063,86 +988,7 @@ describe('Check integration tests for CapMonsterCloudClientFactory()', () => {
     expect(await srv.destroy()).toBeUndefined();
   });
 
-  it('should solve Temu Task', async () => {
-    expect.assertions(5);
 
-    const srv = await createServerMock({
-      responses: [
-        { responseBody: '{"errorId":0,"taskId":1234567}' },
-        {
-          responseBody:
-            '{"errorId":0,"status":"ready","solution":{"domains": {"www.temu.com": {"cookies": {"privacy_setting_detail":"%7B%22firstPAds"}}}, "headers": { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" }}}',
-        },
-      ],
-    });
-
-    const cmcClient = CapMonsterCloudClientFactory.Create(
-      new ClientOptions({ clientKey: '<your capmonster.cloud API key>', serviceUrl: `http://localhost:${srv.address.port}` }),
-    );
-
-    const temuRequest = new TemuRequest({
-      websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle',
-      metadata: {
-        cookie: 'region=141; language=en; currency=EUR; api_uid=CnBpI2fwFW2Bo',
-      },
-    });
-
-    const task = await cmcClient.Solve(temuRequest);
-
-    expect(srv.caughtRequests[0]).toHaveProperty(
-      'body',
-      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"CustomTask","websiteURL":"https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle","metadata":{"cookie":"region=141; language=en; currency=EUR; api_uid=CnBpI2fwFW2Bo"},"class":"Temu"},"softId":54}',
-    );
-    expect(srv.caughtRequests[1]).toHaveProperty('body', '{"clientKey":"<your capmonster.cloud API key>","taskId":1234567}');
-    expect(task).toHaveProperty('solution');
-    expect(task).toHaveProperty('solution.domains', { 'www.temu.com': { cookies: { privacy_setting_detail: '%7B%22firstPAds' } } });
-
-    expect(await srv.destroy()).toBeUndefined();
-  });
-
-  it('should solve Temu Task with Proxy', async () => {
-    expect.assertions(5);
-
-    const srv = await createServerMock({
-      responses: [
-        { responseBody: '{"errorId":0,"taskId":1234567}' },
-        {
-          responseBody:
-            '{"errorId":0,"status":"ready","solution":{"domains": {"www.temu.com": {"cookies": {"privacy_setting_detail":"%7B%22firstPAds"}}}, "headers": { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" }}}',
-        },
-      ],
-    });
-
-    const cmcClient = CapMonsterCloudClientFactory.Create(
-      new ClientOptions({ clientKey: '<your capmonster.cloud API key>', serviceUrl: `http://localhost:${srv.address.port}` }),
-    );
-
-    const temuRequest = new TemuRequest({
-      websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle',
-      metadata: {
-        cookie: 'region=141; language=en; currency=EUR; api_uid=CnBpI2fwFW2Bo',
-      },
-      proxy: {
-        proxyType: 'http',
-        proxyAddress: '8.8.8.8',
-        proxyPort: 8080,
-        proxyLogin: 'proxyLoginHere',
-        proxyPassword: 'proxyPasswordHere',
-      },
-    });
-
-    const task = await cmcClient.Solve(temuRequest);
-
-    expect(srv.caughtRequests[0]).toHaveProperty(
-      'body',
-      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"CustomTask","websiteURL":"https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle","metadata":{"cookie":"region=141; language=en; currency=EUR; api_uid=CnBpI2fwFW2Bo"},"class":"Temu","proxyType":"http","proxyAddress":"8.8.8.8","proxyPort":8080,"proxyLogin":"proxyLoginHere","proxyPassword":"proxyPasswordHere"},"softId":54}',
-    );
-    expect(srv.caughtRequests[1]).toHaveProperty('body', '{"clientKey":"<your capmonster.cloud API key>","taskId":1234567}');
-    expect(task).toHaveProperty('solution');
-    expect(task).toHaveProperty('solution.domains', { 'www.temu.com': { cookies: { privacy_setting_detail: '%7B%22firstPAds' } } });
-
-    expect(await srv.destroy()).toBeUndefined();
-  });
 
   it('should solve Yidun Task Proxyless', async () => {
     expect.assertions(5);
@@ -1222,86 +1068,7 @@ describe('Check integration tests for CapMonsterCloudClientFactory()', () => {
     expect(await srv.destroy()).toBeUndefined();
   });
 
-  it('should solve Castle Task', async () => {
-    expect.assertions(5);
 
-    const srv = await createServerMock({
-      responses: [
-        { responseBody: '{"errorId":0,"taskId":1234567}' },
-        { responseBody: '{"errorId":0,"status":"ready","solution":{"token":"castle-token"}}' },
-      ],
-    });
-
-    const cmcClient = CapMonsterCloudClientFactory.Create(
-      new ClientOptions({ clientKey: '<your capmonster.cloud API key>', serviceUrl: `http://localhost:${srv.address.port}` }),
-    );
-
-    const castleRequest = new CastleRequest({
-      websiteURL: 'https://example.com/castle',
-      websiteKey: 'pk_test_123',
-      metadata: {
-        wUrl: 'https://s.rsg.sc/auth/js/20251234bgef/build/cw.js',
-        swUrl: 'https://s.rsg.sc/auth/js/20251213bgef/build/csw.js',
-        count: 1,
-      },
-    });
-
-    const task = await cmcClient.Solve(castleRequest);
-
-    expect(srv.caughtRequests[0]).toHaveProperty(
-      'body',
-      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"CustomTask","websiteURL":"https://example.com/castle","websiteKey":"pk_test_123","metadata":{"wUrl":"https://s.rsg.sc/auth/js/20251234bgef/build/cw.js","swUrl":"https://s.rsg.sc/auth/js/20251213bgef/build/csw.js","count":1},"class":"Castle"},"softId":54}',
-    );
-    expect(srv.caughtRequests[1]).toHaveProperty('body', '{"clientKey":"<your capmonster.cloud API key>","taskId":1234567}');
-    expect(task).toHaveProperty('solution');
-    expect(task).toHaveProperty('solution.token', 'castle-token');
-
-    expect(await srv.destroy()).toBeUndefined();
-  });
-
-  it('should solve Castle Task with Proxy', async () => {
-    expect.assertions(5);
-
-    const srv = await createServerMock({
-      responses: [
-        { responseBody: '{"errorId":0,"taskId":1234567}' },
-        { responseBody: '{"errorId":0,"status":"ready","solution":{"token":"castle-token"}}' },
-      ],
-    });
-
-    const cmcClient = CapMonsterCloudClientFactory.Create(
-      new ClientOptions({ clientKey: '<your capmonster.cloud API key>', serviceUrl: `http://localhost:${srv.address.port}` }),
-    );
-
-    const castleRequest = new CastleRequest({
-      websiteURL: 'https://example.com/castle',
-      websiteKey: 'pk_test_123',
-      metadata: {
-        wUrl: 'https://s.rsg.sc/auth/js/20251234bgef/build/cw.js',
-        swUrl: 'https://s.rsg.sc/auth/js/20251213bgef/build/csw.js',
-        count: 1,
-      },
-      proxy: {
-        proxyType: 'http',
-        proxyAddress: '8.8.8.8',
-        proxyPort: 8080,
-        proxyLogin: 'proxyLoginHere',
-        proxyPassword: 'proxyPasswordHere',
-      },
-    });
-
-    const task = await cmcClient.Solve(castleRequest);
-
-    expect(srv.caughtRequests[0]).toHaveProperty(
-      'body',
-      '{"clientKey":"<your capmonster.cloud API key>","task":{"type":"CustomTask","websiteURL":"https://example.com/castle","websiteKey":"pk_test_123","metadata":{"wUrl":"https://s.rsg.sc/auth/js/20251234bgef/build/cw.js","swUrl":"https://s.rsg.sc/auth/js/20251213bgef/build/csw.js","count":1},"class":"Castle","proxyType":"http","proxyAddress":"8.8.8.8","proxyPort":8080,"proxyLogin":"proxyLoginHere","proxyPassword":"proxyPasswordHere"},"softId":54}',
-    );
-    expect(srv.caughtRequests[1]).toHaveProperty('body', '{"clientKey":"<your capmonster.cloud API key>","taskId":1234567}');
-    expect(task).toHaveProperty('solution');
-    expect(task).toHaveProperty('solution.token', 'castle-token');
-
-    expect(await srv.destroy()).toBeUndefined();
-  });
 
   it('should solve TSPD Task', async () => {
     expect.assertions(5);

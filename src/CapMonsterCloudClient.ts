@@ -14,8 +14,6 @@ import { FunCaptchaResponse } from './Responses/FunCaptchaResponse';
 import { FunCaptchaRequest } from './Requests/FunCaptchaRequest';
 import { GeeTestResponse } from './Responses/GeeTestResponse';
 import { GeeTestRequest } from './Requests/GeeTestRequest';
-import { HCaptchaResponse } from './Responses/HCaptchaResponse';
-import { HCaptchaRequest } from './Requests/HCaptchaRequest';
 import { TurnstileRequest } from './Requests/TurnstileRequest';
 import { ImageToTextRequest } from './Requests/ImageToTextRequest';
 import { ImageToTextResponse } from './Responses/ImageToTextResponse';
@@ -29,7 +27,6 @@ import { TurnstileResponse } from './Responses/TurnstileResponse';
 import { SerializeObject } from './Requests/RequestsSerialization';
 import { ComplexImageRecaptchaRequest } from './Requests/ComplexImageRecaptchaRequest';
 import { ComplexImageResponse } from './Responses/ComplexImageResponse';
-import { ComplexImageHCaptchaRequest } from './Requests/ComplexImageHCaptchaRequest';
 import { ComplexImageFunCaptchaRequest } from './Requests/ComplexImageFunCaptchaRequest';
 import { DataDomeResponse } from './Responses/DataDomeResponse';
 import { DataDomeRequest } from './Requests/DataDomeRequest';
@@ -47,8 +44,6 @@ import { ComplexImageTaskRecognitionRequest } from './Requests/ComplexImageTaskR
 import { ComplexImageRecognitionResponse } from './Responses/ComplexImageRecognitionResponse';
 import { ProsopoRequest } from './Requests/ProsopoRequest';
 import { ProsopoResponse } from './Responses/ProsopoResponse';
-import { TemuRequest } from './Requests/TemuRequest';
-import { TemuResponse } from './Responses/TemuResponse';
 import { YidunRequest } from './Requests/YidunRequest';
 import { YidunResponse } from './Responses/YidunResponse';
 import { MTCaptchaRequest } from './Requests/MTCaptchaRequest';
@@ -57,8 +52,6 @@ import { AltchaRequest } from './Requests/AltchaRequest';
 import { AltchaResponse } from './Responses/AltchaResponse';
 import { RecaptchaV3EnterpriseRequest } from './Requests/RecaptchaV3EnterpriseRequest';
 import { RecaptchaV3EnterpriseResponse } from './Responses/RecaptchaV3EnterpriseResponse';
-import { CastleRequest } from './Requests/CastleRequest';
-import { CastleResponse } from './Responses/CastleResponse';
 import { TSPDRequest } from './Requests/TSPDRequest';
 import { TSPDResponse } from './Responses/TSPDResponse';
 import { HuntRequest } from './Requests/HuntRequest';
@@ -195,15 +188,6 @@ export class CapMonsterCloudClient {
   ): Promise<CaptchaResult<GeeTestResponse>>;
 
   /**
-   * Solve HCaptchaTask task
-   * You will get response within 10 - 180 secs period depending on service workload.
-   */
-  public async Solve(
-    task: HCaptchaRequest,
-    resultTimeouts?: GetResultTimeouts,
-    cancellationController?: AbortController,
-  ): Promise<CaptchaResult<HCaptchaResponse>>;
-  /**
    * Solve ImageToText task
    * You will get response within 300ms to 6s period depending on service workload.
    */
@@ -286,24 +270,6 @@ export class CapMonsterCloudClient {
     resultTimeouts?: GetResultTimeouts,
     cancellationController?: AbortController,
   ): Promise<CaptchaResult<ImpervaResponse>>;
-  /**
-   * Solve Temu task
-   * You will get response within 10 - 180 secs period depending on service workload.
-   */
-  public async Solve(
-    task: TemuRequest,
-    resultTimeouts?: GetResultTimeouts,
-    cancellationController?: AbortController,
-  ): Promise<CaptchaResult<TemuResponse>>;
-  /**
-   * Solve Castle task
-   * You will get response within 10 - 180 secs period depending on service workload.
-   */
-  public async Solve(
-    task: CastleRequest,
-    resultTimeouts?: GetResultTimeouts,
-    cancellationController?: AbortController,
-  ): Promise<CaptchaResult<CastleResponse>>;
   /**
    * Solve Alibaba task
    * You will get response within 10 - 180 secs period depending on service workload.
@@ -402,15 +368,6 @@ export class CapMonsterCloudClient {
    */
   public async Solve(
     task: ComplexImageRecaptchaRequest,
-    resultTimeouts?: GetResultTimeouts,
-    cancellationController?: AbortController,
-  ): Promise<CaptchaResult<ComplexImageResponse>>;
-  /**
-   * Solve Complex Image HCaptcha Task
-   * You will get response within 10 - 180 secs period depending on service workload.
-   */
-  public async Solve(
-    task: ComplexImageHCaptchaRequest,
     resultTimeouts?: GetResultTimeouts,
     cancellationController?: AbortController,
   ): Promise<CaptchaResult<ComplexImageResponse>>;
