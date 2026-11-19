@@ -158,7 +158,7 @@ export class CapMonsterCloudClient {
       }
 
       if (response.status === TaskResultStatus.ready) {
-        return { type: TaskResultType.Completed, solution: response.solution as S };
+        return { type: TaskResultType.Completed, solution: response.solution as S, cost: response.cost };
       }
 
       return { type: TaskResultType.InProgress };
@@ -498,7 +498,10 @@ export class CapMonsterCloudClient {
             return new CaptchaResult<TaskCompletedSolution>({ error: result.error });
           case TaskResultType.Completed:
             clearTimeout(wholeTimeoutId);
-            return new CaptchaResult<TaskCompletedSolution>({ solution: result.solution as TaskCompletedSolution });
+            return new CaptchaResult<TaskCompletedSolution>({
+              solution: result.solution as TaskCompletedSolution,
+              cost: result.cost,
+            });
           case TaskResultType.InProgress:
           default:
             break;
