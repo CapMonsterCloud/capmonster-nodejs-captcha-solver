@@ -64,6 +64,7 @@ export type TaskCompletedSolution =
 export type TaskCompleted<S extends TaskCompletedSolution> = {
   type: TaskResultType.Completed;
   solution: S;
+  cost?: number;
 };
 
 export type TaskResult<S extends TaskCompletedSolution> = TaskInProgress | TaskFailed | TaskCompleted<S>;
@@ -79,6 +80,10 @@ export type GetTaskResultResponse<S extends TaskCompletedSolution> = {
   errorDescription: string | null;
   status: TaskResultStatus;
   solution: S | null;
+  /**
+   * Solution cost in US dollars (USD). Returned only when status is ready.
+   */
+  cost?: number;
 };
 
 export class GetTaskResultError extends Error {

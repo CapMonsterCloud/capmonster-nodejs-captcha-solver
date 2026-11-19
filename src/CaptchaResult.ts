@@ -14,8 +14,13 @@ export class CaptchaResult<S extends TaskCompletedSolution> {
    * Task result. Different for each type of task.
    */
   public solution?: S;
-  constructor({ error, solution }: { error?: ErrorType; solution?: S }) {
+  /**
+   * Solution cost in US dollars (USD). Returned only for a ready result.
+   */
+  public cost?: number;
+  constructor({ error, solution, cost }: { error?: ErrorType; solution?: S; cost?: number }) {
     this.error = error;
     this.solution = solution;
+    this.cost = cost;
   }
 }
