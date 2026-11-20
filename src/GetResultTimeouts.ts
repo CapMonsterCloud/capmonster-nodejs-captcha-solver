@@ -50,12 +50,6 @@ export const FunCaptchaTimeouts = {
   timeout: 1000 * 80,
 } as GetResultTimeouts;
 
-export const HCaptchaTimeouts = {
-  firstRequestDelay: 1000 * 1,
-  firstRequestNoCacheDelay: 1000 * 10,
-  requestsInterval: 1000 * 3,
-  timeout: 1000 * 180,
-} as GetResultTimeouts;
 
 export const GeeTestTimeouts = {
   firstRequestDelay: 1000 * 1,
@@ -130,9 +124,6 @@ export function detectResultTimeouts(task: Task): GetResultTimeouts {
       return FunCaptchaTimeouts;
     case TaskType.GeeTestTask:
       return GeeTestTimeouts;
-    case TaskType.HCaptchaTaskProxyless:
-    case TaskType.HCaptchaTask:
-      return HCaptchaTimeouts;
     case TaskType.ImageToTextTask:
       return ImageToTextTimeouts;
     case TaskType.RecaptchaV2EnterpriseTask:

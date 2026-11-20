@@ -1,8 +1,6 @@
 export enum TaskType {
   FunCaptchaTask = 'FunCaptchaTask',
   GeeTestTask = 'GeeTestTask',
-  HCaptchaTaskProxyless = 'HCaptchaTaskProxyless',
-  HCaptchaTask = 'HCaptchaTask',
   ImageToTextTask = 'ImageToTextTask',
   RecaptchaV2EnterpriseTask = 'RecaptchaV2EnterpriseTask',
   RecaptchaV3EnterpriseTask = 'RecaptchaV3EnterpriseTask',

@@ -207,6 +207,30 @@ run().catch(console.error);
 
 ---
 
+## 🔧 Client Configuration
+
+`ClientOptions` controls how the client connects to the CapMonster Cloud API:
+
+| Option | Default | Description |
+| :--- | :--- | :--- |
+| `clientKey` | — | **Required.** Your CapMonster Cloud API key from the [Dashboard](https://dash.capmonster.cloud/Account/SignUp?utm_source=github&utm_medium=referral&utm_campaign=nodejs_repo_readme). |
+| `serviceUrl` | `https://api.capmonster.cloud` | CapMonster Cloud API endpoint (`URL` or string). |
+| `softId` | `54` | `softId` sent with every created task; identifies your software in the Dashboard. |
+
+```typescript
+import { CapMonsterCloudClientFactory, ClientOptions } from '@zennolab_com/capmonstercloud-client';
+
+const client = CapMonsterCloudClientFactory.Create(
+  new ClientOptions({
+    clientKey: 'YOUR_API_KEY',
+    serviceUrl: 'https://api.capmonster.cloud',
+    softId: 12345,
+  }),
+);
+```
+
+---
+
 ## 🔄 Migrating from 2Captcha or Capsolver
 
 Already use 2Captcha or Capsolver in your Node.js scraper or bot? Replace only the solver call and keep the rest of your code unchanged. CapMonster Cloud follows the same flow: send the website URL and sitekey, receive the token.
@@ -269,13 +293,15 @@ All task types follow the official [CapMonster Cloud API documentation](https://
 
 | Task family | Example request classes in this SDK |
 | :--- | :--- |
-| **reCAPTCHA** | `RecaptchaV2Request`, `RecaptchaV2EnterpriseRequest`, `RecaptchaV3ProxylessRequest` |
+| **reCAPTCHA** | `RecaptchaV2Request`, `RecaptchaV2EnterpriseRequest` (optional `minScore`, 0.1–0.9), `RecaptchaV3ProxylessRequest`, `RecaptchaV3EnterpriseRequest` |
 | **Cloudflare Turnstile** | `TurnstileRequest` |
 | **GeeTest** | `GeeTestRequest` |
-| **Amazon WAF** | `AmazonRequest`, `AmazonProxylessRequest` |
+| **FunCaptcha** | `FunCaptchaRequest` |
+| **Amazon WAF** | `AmazonRequest` |
+| **Binance CAPTCHA** | `BinanceRequest` |
 | **Image-to-Text** | `ImageToTextRequest` |
-| **Complex image tasks** | `ComplexImageRecaptchaRequest`, `ComplexImageTaskRecognitionRequest` |
-| **Custom anti-bot tasks** | `DataDomeRequest`, `ImpervaRequest`, `TenDIRequest`, `ProsopoRequest`, `BasiliskRequest` |
+| **Complex image tasks** | `ComplexImageRecaptchaRequest`, `ComplexImageTaskRecognitionRequest`, `ComplexImageFunCaptchaRequest` |
+| **Custom anti-bot tasks** | `DataDomeRequest`, `ImpervaRequest`, `TSPDRequest`, `TenDIRequest`, `ProsopoRequest`, `BasiliskRequest`, `AltchaRequest`, `AlibabaRequest`, `FriendlyRequest`, `HuntRequest`, `MTCaptchaRequest`, `YidunRequest` |
 
 ---
 
@@ -296,6 +322,48 @@ All task types follow the official [CapMonster Cloud API documentation](https://
          ▼
 [ Receive Token & Autosubmit ] ──► Complete bypass
 ```
+
+---
+
+## 🐞 Error Handling
+
+`Solve` does not throw on task errors: it returns a `CaptchaResult` where one of the two properties is set — `solution` (the solution object on success) or `error` (`ErrorType` on failure). On success the result also carries `cost` — the price of this solution in USD.
+
+| `ErrorType` | Meaning |
+| :--- | :--- |
+| `Timeout` | No solution within the maximum waiting time (or the provided `AbortController` was aborted). |
+| `KEY_DOES_NOT_EXIST`, `ZERO_BALANCE`, `IP_BANNED`, `CAPTCHA_UNSOLVABLE`, `TOO_MUCH_REQUESTS`, and similar | API error codes, mapped from the API `errorCode` strings. |
+| `Unknown` | An unrecognized API error. |
+
+Transport and balance failures throw:
+
+| Exception | Raised when |
+| :--- | :--- |
+| `GetBalanceError` | `getBalance()` failed; carries `errorType: ErrorType`. |
+| `CapmonsterCloudClientError` | The API answered with an error status or an unparsable response. |
+
+```typescript
+const result = await client.Solve(task);
+
+if (result.error) {
+  console.log('Solve failed:', result.error);
+} else {
+  console.log('Token:', result.solution?.gRecaptchaResponse);
+  console.log('Cost:', result.cost); // price of this solution in USD
+}
+```
+
+**Polling and timeouts.** The client polls `getTaskResult` automatically with per-captcha-type settings (`firstRequestDelay`, optional `firstRequestNoCacheDelay`, `requestsInterval`, `timeout` — 1 s / 3 s / 180 s for token tasks). Pass your own `GetResultTimeouts` object as the second argument of `Solve` to override them:
+
+```typescript
+const result = await client.Solve(task, {
+  firstRequestDelay: 1000,
+  requestsInterval: 3000,
+  timeout: 240_000,
+});
+```
+
+Unsolved tasks are not charged.
 
 ---
 

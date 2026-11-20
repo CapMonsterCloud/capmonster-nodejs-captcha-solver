@@ -6,11 +6,9 @@ import { RecaptchaV2Request } from './RecaptchaV2Request';
 import { ImageToTextRequest } from './ImageToTextRequest';
 import { RecaptchaV3ProxylessRequest } from './RecaptchaV3ProxylessRequest';
 import { FunCaptchaRequest } from './FunCaptchaRequest';
-import { HCaptchaRequest } from './HCaptchaRequest';
 import { GeeTestRequest } from './GeeTestRequest';
 import { TenDIRequest } from './TenDIRequest';
 import { RecaptchaV2EnterpriseRequest } from './RecaptchaV2EnterpriseRequest';
-import { ComplexImageHCaptchaRequest } from './ComplexImageHCaptchaRequest';
 import { ComplexImageRecaptchaRequest } from './ComplexImageRecaptchaRequest';
 import { ComplexImageFunCaptchaRequest } from './ComplexImageFunCaptchaRequest';
 import { AmazonRequest } from './AmazonRequest';
@@ -235,65 +233,7 @@ describe('Check unit tests for SerializeObject()', () => {
     });
   });
 
-  it(`should serialize HCaptchaProxylessRequest`, () => {
-    const serialized = SerializeObject({
-      clientKey: '<your capmonster.cloud API key>',
-      task: new HCaptchaRequest({
-        websiteURL: 'https://lessons.zennolab.com/captchas/hcaptcha/?level=easy',
-        websiteKey: '472fc7af-86a4-4382-9a49-ca9090474471',
-        isInvisible: true,
-        data: 'some data',
-      }),
-    });
 
-    expect(serialized).toMatchObject({
-      clientKey: '<your capmonster.cloud API key>',
-      task: {
-        type: 'HCaptchaTask',
-        websiteURL: 'https://lessons.zennolab.com/captchas/hcaptcha/?level=easy',
-        websiteKey: '472fc7af-86a4-4382-9a49-ca9090474471',
-        isInvisible: true,
-        data: 'some data',
-        userAgent: expect(true).toBe(true),
-      },
-    });
-  });
-
-  it(`should serialize HCaptchaRequest`, () => {
-    const serialized = SerializeObject({
-      clientKey: '<your capmonster.cloud API key>',
-      task: new HCaptchaRequest({
-        websiteURL: 'https://lessons.zennolab.com/captchas/hcaptcha/?level=easy',
-        websiteKey: '472fc7af-86a4-4382-9a49-ca9090474471',
-        isInvisible: true,
-        data: 'some data',
-        proxy: {
-          proxyType: 'https',
-          proxyAddress: 'https://proxy.com',
-          proxyPort: 6045,
-          proxyLogin: 'login',
-          proxyPassword: 'p@ssword',
-        },
-      }),
-    });
-
-    expect(serialized).toMatchObject({
-      clientKey: '<your capmonster.cloud API key>',
-      task: {
-        type: 'HCaptchaTask',
-        websiteURL: 'https://lessons.zennolab.com/captchas/hcaptcha/?level=easy',
-        websiteKey: '472fc7af-86a4-4382-9a49-ca9090474471',
-        isInvisible: true,
-        data: 'some data',
-        userAgent: expect(true).toBe(true),
-        proxyType: 'https',
-        proxyAddress: 'https://proxy.com',
-        proxyPort: 6045,
-        proxyLogin: 'login',
-        proxyPassword: 'p@ssword',
-      },
-    });
-  });
 
   it(`should serialize GeeTestProxylessRequestV3`, () => {
     const serialized = SerializeObject({
@@ -540,35 +480,6 @@ describe('Check unit tests for SerializeObject()', () => {
     });
   });
 
-  it(`should serialize ComplexImageHCaptchaRequest`, () => {
-    const serialized = SerializeObject({
-      clientKey: '<your capmonster.cloud API key>',
-      task: new ComplexImageHCaptchaRequest({
-        imageUrls: ['https://i.postimg.cc/kg71cbRt/image-1.jpg', 'https://i.postimg.cc/6381Zx2j/image.jpg'],
-        metaData: {
-          Task: 'Please click each image containing a mountain',
-        },
-        websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle',
-        exampleImagesBase64: ['image in base64'],
-        exampleImageUrls: ['https://i.postimg.cc/kg71cbRt/image-1.jpg'],
-      }),
-    });
-
-    expect(serialized).toMatchObject({
-      clientKey: '<your capmonster.cloud API key>',
-      task: {
-        type: 'ComplexImageTask',
-        class: 'hcaptcha',
-        imageUrls: ['https://i.postimg.cc/kg71cbRt/image-1.jpg', 'https://i.postimg.cc/6381Zx2j/image.jpg'],
-        exampleImagesBase64: ['image in base64'],
-        exampleImageUrls: ['https://i.postimg.cc/kg71cbRt/image-1.jpg'],
-        metadata: {
-          Task: 'Please click each image containing a mountain',
-        },
-        websiteURL: 'https://lessons.zennolab.com/captchas/recaptcha/v2_simple.php?level=middle',
-      },
-    });
-  });
 
   it(`should serialize ComplexImageRecaptchaRequest`, () => {
     const serialized = SerializeObject({
